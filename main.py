@@ -208,9 +208,9 @@ def run_abstract_reviewer():
                     f"based on the full article text provided below.\n\n"
                     f"FULL ARTICLE CONTENT:\n{article_content}\n\n"
                     f"Provide constructive feedback comparing the abstract to the full article. Check:\n"
-                    f"1. Consistency with full article content\n"
+                    f"1. Consistency (internal and with full article content)\n"
                     f"2. Clarity and readability\n"
-                    f"3. Completeness (background, methods, results, conclusion)\n"
+                    f"3. Completeness (background, methods, results, conclusion) referring to the content of the full article\n"
                     f"4. Accuracy relative to full article\n"
                     f"5. Academic writing style\n"
                     f"6. Overall impact and contribution\n\n"
@@ -238,7 +238,7 @@ def run_abstract_reviewer():
                 model=MODEL_DEPLOYMENT,
                 name="checklister_agent",
                 instructions=(
-                    "You are 'Checklister Agent'. Evaluate the abstract quality using percentage scores (0-100) "
+                    "You are 'Checklister Agent'. Evaluate the abstract quality using percentage scores (0-100%) "
                     "for these objective criteria:\n"
                     "1. Length (250-500 words optimal)\n"
                     "2. Keywords (relevance to paper subject)\n"
@@ -277,7 +277,7 @@ def run_abstract_reviewer():
                 "You are 'Abstract Orchestrator'. Coordinate the abstract review process:\n"
                 "1. Use input_agent to collect the abstract and article\n"
                 "2. Use reviewer_agent for qualitative feedback\n"
-                "3. Use checklister_agent for quantitative scoring\n"
+                "3. Use checklister_agent for quantitative scoring (in %)\n"
                 "4. Use writer_agent to produce corrected version\n"
                 "5. Present final review with scores, feedback, error message if article file path is incorrect, short summary of the article actually provided in the file path and corrected abstract\n\n"
             )
