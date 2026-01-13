@@ -1,0 +1,18 @@
+{
+  "original_abstract": "In this paper, we present our experiment and simulation study of a free piston linear engine based on",
+  "custom_commands": "operating conditions and structure of the linear engine for generating electric power. The free piston lin-",
+  "review_comments": [
+    "",
+    "Clarity & Readability:** The abstract begins by introducing the topic and main system components, but contains incomplete sentences and significant",
+    "Structure & Completeness:** The abstract lacks background context, methodology, results, and conclusions. There are no details about the operating conditions,",
+    "Technical Accuracy:** Without a full article, accuracy can't be fully confirmed, but technical focus is evident. The abstract must be",
+    "Academic Style:** Writing is academic in aim but requires full, grammatically correct sentences and a logical flow.",
+    "Impact & Contribution:** The novelty and outcomes of the study are not specified.",
+    "Suggestions for Improvement:**",
+    "Begin with the problem and motivation (electric power generation with free piston engines)"
+  ],
+  "checklist_scores": {},
+  "corrected_abstract": "This paper presents an experimental and simulation study of a free piston linear engine system designed for electric power generation. The proposed system comprises a two-stroke free piston engine integrated with linear generators and compressors, enabling direct conversion of reciprocating motion into electrical energy. The research focuses on analyzing the engine’s structural design, operating conditions, and performance under varying load scenarios. Experimental investigations were conducted to evaluate the efficiency, stability, and output characteristics of the linear engine, while simulation models were used to investigate dynamic behavior and optimize key parameters. Results indicate that the integrated linear generator operates efficiently over a wide range of pressures and frequencies, with stable power output and minimal mechanical losses. The findings demonstrate the feasibility of free piston linear engines as effective solutions for compact, flexible, and high-efficiency electric power generation systems. The study provides valuable insights into the design and operational optimization of such engines for future applications in distributed energy systems.",
+  "improvement_summary": "Abstract has been reviewed and improved for clarity, completeness, and academic standards.",
+  "article_path": "ear engine includes a two-stroke free piston engine, linear generators, and compressors. In the experi-"
+}

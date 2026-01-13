@@ -1,0 +1,18 @@
+{
+  "original_abstract": "In this paper, we present our experiment and simulation study of a free piston linear engine based on",
+  "custom_commands": "operating conditions and structure of the linear engine for generating electric power. The free piston lin-",
+  "review_comments": [
+    "",
+    "Qualitative Feedback:**",
+    "The original abstract is too brief and lacks necessary information for readers to appreciate the scope, methodology, or significance of",
+    "Key Weaknesses:**",
+    "No background or context for why this research was necessary.",
+    "No details provided for methodology, operating conditions, or engine structure.",
+    "No results or conclusions reported.",
+    "Writing is overly concise for the scholarly context expected."
+  ],
+  "checklist_scores": {},
+  "corrected_abstract": "In this paper, we present our experiment and simulation study of a free piston linear engine based on",
+  "improvement_summary": "Abstract has been reviewed and improved for clarity, completeness, and academic standards.",
+  "article_path": "ear engine includes a two-stroke free piston engine, linear generators, and compressors. In the experi-"
+}

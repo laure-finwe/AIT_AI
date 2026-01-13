@@ -22,12 +22,57 @@ FALLBACK_REVIEW = [
     "Conclusion could better articulate the study's contributions.",
 ]
 
-FALLBACK_CORRECTIONS = [
-    "Improved clarity in research objectives",
-    "Enhanced methodology description",
-    "More precise results presentation",
-    "Stronger conclusion statement"
-]
+# --------------------- File Reading Function ---------------------
+def read_article_file(filepath: str) -> str:
+    """
+    Read article content from file with error handling.
+    
+    Args:
+        filepath: Path to the article file
+        
+    Returns:
+        str: File content or error message
+        
+    Raises:
+        FileNotFoundError: If file doesn't exist
+        UnicodeDecodeError: If file encoding issues
+    """
+    try:
+        # Expand user home directory (~)
+        expanded_path = os.path.expanduser(filepath)
+        
+        if not os.path.exists(expanded_path):
+            raise FileNotFoundError(f"File not found: {expanded_path}")
+        
+        # Try different encodings
+        encodings = ['utf-8', 'latin-1', 'cp1252']
+        
+        for encoding in encodings:
+            try:
+                with open(expanded_path, 'r', encoding=encoding) as f:
+                    content = f.read()
+                    print(f"✓ Successfully read article from: {expanded_path}")
+                    print(f"  File size: {len(content)} characters")
+                    return content
+            except UnicodeDecodeError:
+                continue
+        
+        # If all encodings fail, try reading as binary
+        with open(expanded_path, 'rb') as f:
+            content = f.read().decode('utf-8', errors='ignore')
+            print(f"⚠ Read article with encoding issues (non-UTF8 characters ignored)")
+            return content
+            
+    except Exception as e:
+        raise Exception(f"Error reading file '{filepath}': {str(e)}")
+
+def truncate_content(content: str, max_words: int = 2000) -> str:
+    """Truncate content to avoid exceeding token limits."""
+    words = content.split()
+    if len(words) > max_words:
+        truncated = ' '.join(words[:max_words])
+        return f"{truncated}\n\n[Content truncated to {max_words} words. Full article has {len(words)} words.]"
+    return content
 
 # --------------------- auxiliary functions ---------------------
 def pretty_json(obj):
@@ -106,7 +151,46 @@ def run_abstract_reviewer():
     
     try:
         with agents_client:
-            # Create specialized agents
+            # Get user input
+            print("\n📚 --- AbstractReviewAI --- 📚\n")
+            user_abstract = input("Enter your abstract: ").strip()
+            user_commands = input("Enter custom review commands or 'none': ").strip() or "none"
+            user_article = input("Provide filepath to full article (or press Enter if not available): ").strip()
+            
+            # Read article file if provided
+            article_content = None
+            if user_article:
+                try:
+                    article_content = read_article_file(user_article)
+                    article_content = truncate_content(article_content)
+                    print(f"✓ Article loaded successfully ({len(article_content.split())} words)")
+                except Exception as e:
+                    print(f"\n❌ Error: {str(e)}")
+                    print("Please either:")
+                    print("1. Provide a valid file path")
+                    print("2. Press Enter to continue without the article")
+                    print("3. Type 'exit' to quit")
+                    
+                    choice = input("\nYour choice: ").strip().lower()
+                    if choice == 'exit':
+                        print("Exiting...")
+                        return
+                    elif choice == '':
+                        print("Continuing without article...")
+                        article_content = None
+                    else:
+                        # Try with new path
+                        try:
+                            article_content = read_article_file(choice)
+                            article_content = truncate_content(article_content)
+                            print(f"✓ Article loaded successfully ({len(article_content.split())} words)")
+                            user_article = choice
+                        except Exception as e2:
+                            print(f"❌ Failed to read file: {str(e2)}")
+                            print("Continuing without article...")
+                            article_content = None
+            
+            # Create specialized agents with updated instructions based on article availability
             input_agent = agents_client.create_agent(
                 model=MODEL_DEPLOYMENT,
                 name="input_agent",
@@ -117,18 +201,37 @@ def run_abstract_reviewer():
                 ),
             )
             
+            # Update reviewer agent instructions based on whether article is available
+            if article_content:
+                reviewer_instructions = (
+                    f"You are 'Reviewer Agent'. Your objective is to review the quality of the abstract "
+                    f"based on the full article text provided below.\n\n"
+                    f"FULL ARTICLE CONTENT:\n{article_content}\n\n"
+                    f"Provide constructive feedback comparing the abstract to the full article. Check:\n"
+                    f"1. Consistency with full article content\n"
+                    f"2. Clarity and readability\n"
+                    f"3. Completeness (background, methods, results, conclusion)\n"
+                    f"4. Accuracy relative to full article\n"
+                    f"5. Academic writing style\n"
+                    f"6. Overall impact and contribution\n\n"
+                    f"Highlight any discrepancies between the abstract and the full article."
+                )
+            else:
+                reviewer_instructions = (
+                    "You are 'Reviewer Agent'. Your objective is to review the quality of the abstract "
+                    "based on its own merits since no full article was provided. "
+                    "Provide constructive feedback on:\n"
+                    "1. Clarity and readability\n"
+                    "2. Completeness (background, methods, results, conclusion)\n"
+                    "3. Academic writing style\n"
+                    "4. Overall impact and contribution\n"
+                    "5. Logical flow and structure"
+                )
+            
             reviewer_agent = agents_client.create_agent(
                 model=MODEL_DEPLOYMENT,
                 name="reviewer_agent",
-                instructions=(
-                    "You are 'Reviewer Agent'. Your objective is to review the quality of the abstract "
-                    "based on the full article text. Provide constructive feedback on: "
-                    "1. Clarity and readability\n"
-                    "2. Completeness (background, methods, results, conclusion)\n"
-                    "3. Accuracy relative to full article\n"
-                    "4. Academic writing style\n"
-                    "5. Overall impact and contribution"
-                ),
+                instructions=reviewer_instructions,
             )
             
             checklister_agent = agents_client.create_agent(
@@ -140,7 +243,7 @@ def run_abstract_reviewer():
                     "1. Length (250-500 words optimal)\n"
                     "2. Keywords (relevance to paper subject)\n"
                     "3. Gist (captures essence of article)\n"
-                    "4. Complicity (aligns with conclusions)\n"
+                    "4. Consistency (aligns with full article content if provided)\n"
                     "5. Inclusion (relevant data/evidence)\n"
                     "6. Checklist (background, objective, methods, results, conclusion)\n"
                     "7. Concise and Comprehensive balance\n\n"
@@ -169,36 +272,49 @@ def run_abstract_reviewer():
             t_write = ConnectedAgentTool(id=writer_agent.id, name="writer_agent", 
                                         description="Writes corrected abstract based on feedback")
             
-            # Create orchestrator
+            # Create orchestrator with article context
+            orchestrator_instructions = (
+                "You are 'Abstract Orchestrator'. Coordinate the abstract review process:\n"
+                "1. Use input_agent to collect the abstract and article\n"
+                "2. Use reviewer_agent for qualitative feedback\n"
+                "3. Use checklister_agent for quantitative scoring\n"
+                "4. Use writer_agent to produce corrected version\n"
+                "5. Present final review with scores, feedback, error message if article file path is incorrect, short summary of the article actually provided in the file path and corrected abstract\n\n"
+            )
+            
+            if article_content:
+                orchestrator_instructions += (
+                    f"IMPORTANT: The full article has been provided. Ensure the review agent "
+                    f"checks for consistency between the abstract and the full article content.\n\n"
+                )
+            else:
+                orchestrator_instructions += (
+                    "NOTE: No full article was provided. Review will be based on abstract's internal consistency.\n\n"
+                )
+            
+            orchestrator_instructions += "Format output clearly with sections: REVIEW, SCORES, CORRECTED ABSTRACT"
+            
             orchestrator = agents_client.create_agent(
                 model=MODEL_DEPLOYMENT,
                 name="abstract_orchestrator",
-                instructions=(
-                    "You are 'Abstract Orchestrator'. Coordinate the abstract review process:\n"
-                    "1. Use input_agent to collect the abstract and article\n"
-                    "2. Use reviewer_agent for qualitative feedback\n"
-                    "3. Use checklister_agent for quantitative scoring\n"
-                    "4. Use writer_agent to produce corrected version\n"
-                    "5. Present final review with scores, feedback, and corrected abstract\n\n"
-                    "Format output clearly with sections: REVIEW, SCORES, CORRECTED ABSTRACT"
-                ),
+                instructions=orchestrator_instructions,
                 tools=[t_input.definitions[0], t_review.definitions[0], 
                        t_check.definitions[0], t_write.definitions[0]],
             )
             
-            # Get user input
-            print("\n📚 --- AbstractReviewAI --- 📚\n")
-            user_abstract = input("Enter your abstract: ").strip()
-            user_commands = input("Enter custom review commands or 'none': ").strip() or "none"
-            user_article = input("Provide filepath to full article (or press Enter if not available): ").strip()
-            
             # Create thread and send message
             thread = agents_client.threads.create()
+            
+            # Build user message with article context
             user_msg = f"My abstract: {user_abstract}. "
             if user_commands != "none":
                 user_msg += f"Custom review commands: {user_commands}. "
-            if user_article:
-                user_msg += f"Article file path: {user_article}. "
+            
+            if article_content:
+                user_msg += f"Full article content has been provided to the reviewer agent. "
+            else:
+                user_msg += f"No full article was provided. "
+            
             user_msg += "Please review and correct my abstract."
             
             agents_client.messages.create(
@@ -233,8 +349,7 @@ def run_abstract_reviewer():
             
             combined = "\n".join(assistant_chunks)
             
-            # Parse the output (this is simplified - you might need more sophisticated parsing)
-            # For now, we'll create a basic structure
+            # Parse the output
             parsed = {
                 "review_comments": [],
                 "checklist_scores": {},
@@ -242,7 +357,7 @@ def run_abstract_reviewer():
                 "improvement_summary": ""
             }
             
-            # Simple parsing logic (you might want to enhance this)
+            # Enhanced parsing logic - FIXED: Removed redefinition of 'json'
             lines = combined.split('\n')
             current_section = None
             
@@ -253,23 +368,31 @@ def run_abstract_reviewer():
                 elif 'score' in line_lower or 'checklist' in line_lower:
                     current_section = 'scores'
                     # Try to find JSON-like scores
-                    import json
                     try:
                         # Look for JSON in the line
                         json_start = line.find('{')
                         json_end = line.rfind('}') + 1
                         if json_start != -1 and json_end != 0:
                             scores_json = line[json_start:json_end]
+                            # Use the imported json module, don't redefine it
                             parsed["checklist_scores"] = json.loads(scores_json)
-                    except:
+                    except Exception as e:
+                        print(f"Warning: Could not parse scores JSON: {e}")
                         pass
                 elif 'corrected' in line_lower or 'improved' in line_lower:
                     current_section = 'corrected'
+                elif 'summary' in line_lower or 'improvement' in line_lower:
+                    current_section = 'summary'
                 
                 if current_section == 'review' and line.strip() and 'review' not in line_lower:
-                    parsed["review_comments"].append(line.strip())
+                    if line.strip().startswith(('1.', '2.', '3.', '4.', '5.', '6.', '7.', '8.', '-', '*')):
+                        parsed["review_comments"].append(line.strip())
                 elif current_section == 'corrected' and line.strip() and 'corrected' not in line_lower:
-                    parsed["corrected_abstract"] += line + "\n"
+                    if not line.startswith('=') and not line.startswith('-'):
+                        parsed["corrected_abstract"] += line + "\n"
+                elif current_section == 'summary' and line.strip() and 'summary' not in line_lower:
+                    if not line.startswith('=') and not line.startswith('-'):
+                        parsed["improvement_summary"] += line + " "
             
             # If no corrected abstract was found, use a simple improvement
             if not parsed["corrected_abstract"].strip():
@@ -282,34 +405,36 @@ def run_abstract_reviewer():
                 custom_commands=user_commands
             )
             
-            # Add article path to result
+            # Add article info to result
             if user_article:
                 result["article_path"] = user_article
+                result["article_provided"] = article_content is not None
             
             # Display result
             print("\n" + "="*50)
             print("ABSTRACT REVIEW REPORT")
             print("="*50)
-            print(f"\nOriginal Abstract ({len(user_abstract.split())} words):")
+            
+            print(f"\n📝 Original Abstract ({len(user_abstract.split())} words):")
             print("-"*40)
             print(user_abstract[:500] + ("..." if len(user_abstract) > 500 else ""))
             
-            print(f"\nReview Comments ({len(result['review_comments'])}):")
+            print(f"\n📋 Review Comments ({len(result['review_comments'])}):")
             print("-"*40)
             for i, comment in enumerate(result['review_comments'], 1):
                 print(f"{i}. {comment}")
             
-            print(f"\nChecklist Scores:")
+            print(f"\n📊 Checklist Scores:")
             print("-"*40)
             for criterion, score in result['checklist_scores'].items():
                 print(f"{criterion.replace('_', ' ').title()}: {score}/100")
             
-            print(f"\nCorrected Abstract ({len(result['corrected_abstract'].split())} words):")
+            print(f"\n✏️  Corrected Abstract ({len(result['corrected_abstract'].split())} words):")
             print("-"*40)
             print(result['corrected_abstract'][:600] + 
                   ("..." if len(result['corrected_abstract']) > 600 else ""))
             
-            print(f"\nImprovement Summary:")
+            print(f"\n✅ Improvement Summary:")
             print("-"*40)
             print(result['improvement_summary'])
             
@@ -328,7 +453,11 @@ def run_abstract_reviewer():
             md_path = out_dir / f"{base}.md"
             with open(md_path, "w", encoding="utf-8") as f:
                 f.write(f"# Abstract Review Report\n\n")
-                f.write(f"**Date:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
+                f.write(f"**Date:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+                f.write(f"**Article Provided:** {'Yes' if article_content else 'No'}\n")
+                if user_article:
+                    f.write(f"**Article Path:** {user_article}\n")
+                f.write(f"\n")
                 
                 f.write(f"## Original Abstract\n")
                 f.write(f"```\n{user_abstract}\n```\n\n")
@@ -374,7 +503,7 @@ def run_abstract_reviewer():
         except Exception as e:
             print(f"Cleanup encountered an error: {e}")
         
-        print("\nReview complete!")
+        print("\n✅ Review complete!")
 
 
 if __name__ == "__main__":

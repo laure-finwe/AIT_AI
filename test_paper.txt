@@ -1,0 +1,1245 @@
+A study of operating parameters on the linear spark ignition engine q
+Ocktaeck Lim a,⇑, Nguyen Ba Hung a
+, Seokyoung Oh a , Gangchul Kim b
+, Hanho Song c , Norimasa Iida d
+a School of Mechanical and Automotive Engineering, University of Ulsan, San 29, Mugeo2-dong, Nam-gu, Ulsan 680-749, South Korea
+b Korea Institute of Energy Research, 102 Gajeong-ro, Yuseong-gu, Daejeon 305-343, South Korea
+c Department of Mechanical and Aerospace Engineering, Seoul National University, South Korea
+d Department of System Design Engineering, Keio University, Yokohama, Japan
+h i g h l i g h t s
+ An experimental and simulation study of a linear engine is conducted.
+ The effects of operating parameters on the generating power are investigated.
+ The air gap length has a significant influence on the generating power.
+ The generating power of the linear engine is optimized with the value of 111.3 W.
+ There are no problems for the linear engine after 100 h of durable test.
+a r t i c l e i n f o
+Article history:
+Received 6 November 2014
+Received in revised form 2 June 2015
+Accepted 16 August 2015
+Available online 12 September 2015
+Keywords:
+Linear engine
+Free piston engine
+Linear alternator
+Spark timing
+Equivalence ratio
+Air gap
+a b s t r a c t
+[...]
+Ó 2015 Elsevier Ltd. All rights reserved.
+1. Introduction
+The crisis of global warming and shortage of fossil fuels are
+being a motivation for the scientists as well as the institutes to
+develop new energy conversion devices and environmentally
+friendly fuels. One of the methods to solve the crises is using a
+free-piston linear engine (FPLE). A free-piston linear engine is con-
+sidered to be a crankless internal combustion engine with free
+motion of piston in cylinder. In terms of structure, the engine
+http://dx.doi.org/10.1016/j.apenergy.2015.08.035
+0306-2619/Ó 2015 Elsevier Ltd. All rights reserved.
+Abbreviations: FPLE, free piston linear engine; HCCI, homogeneous charge
+compression ignition; ECU, electronic control unit; DSP, digital signal processing;
+DAQ, data acquisition.
+q This article is based on a short proceedings paper in Energy Procedia Volume
+161 (2014). It has been substantially modified and extended, and has been subject
+to the normal peer review and revision process of the journal. This paper is included
+in the Special Issue of ICAE2014 edited by Prof. J Yan, Prof. DJ Lee, Prof. SK Chou, and
+Prof. U Desideri.
+⇑ Corresponding author.
+E-mail address: otlim@ulsan.ac.kr (O. Lim).
+Applied Energy 160 (2015) 746–760
+Contents lists available at ScienceDirect
+Applied Energy
+j o u r n a l h o m e p a g e : w w w . e l s e v i e r . c o m / l o c a t e / a p e n e r g y
+consists of two main components: the free-piston engine, and a
+linear alternator. Unlike conventional engines with a crankshaft
+mechanism, the combustion process of the FPLE can be optimized
+through the variable compression ratios [1–14]. Besides, the varia-
+tion of compression ratios in FPLE also allows the engine to operate
+with various kinds of fuels as well as HCCI combustion [15–26]. In
+general, the FPLE can be classified into three types including single
+piston, dual piston and opposed piston [1]. Of there, the dual piston
+engine has a higher power/weight ratio than others [26]. However,
+the operation of the dual piston engine is mainly controlled by an
+electronic system, and the piston crown may hit the cylinder head
+if the piston is not controlled correctly [27–31]. Therefore, a damp-
+ing device (e.g. metal spring) is needed to install in the engine for
+avoiding the collision between the piston crown and cylinder head.
+In a FPLE, one of the most important components is the linear alter-
+nator or linear generator, which is used to start up the engine in
+the beginning mode or motoring mode. Two kinds of linear
+alternators used in the FPLE are tubular-type and flat-type linear
+alternators. Therein, the flat-type linear alternator is rarely used
+in FPLE, although it has higher efficiency, output voltage, and
+current [32]. There were many previous studies for the dual piston
+engine using tubular-type linear alternator. Atkinson et al. [33] pre-
+sented a parametric study of a spark ignition dual piston engine
+using the combination of two numerical models such as dynamic
+model and thermodynamic model. Shoukry et al. [34] established
+a series of dynamic and thermodynamic numerical equations to pre-
+dict the behavior of a direct injection dual piston engine over a wide
+operating range. In addition, there were many other simulation
+studies for the dual piston engine, which could be found in
+[35–43]. As can be seen above, most of the previous studies for
+the dual piston engine focused only on simulation as well as numer-
+ical analysis of this engine. Therefore, an experimental research is
+needed to conduct on a dual free-piston engine to find out how is
+the operation of the engine changed under real operating conditions.
+This paper presents experiment and simulation study for a
+power pack using the dual piston free-piston engine combined
+with the flat-type linear generators. Therein, an experimental
+study is presented as a main part of this paper. In the experimental
+study, the effects of the main parameters such as input caloric
+value, spark timing delay, equivalence ratio and air gap length on
+the piston dynamics, electric power output and in-cylinder pres-
+sure of the linear engine are investigated. To check the durability
+of the linear engine, a durable test is carried out to examine the
+behavior of the linear engine after 100 h of the durable test. Beside
+experimental study, a simulation study is conducted to predict the
+piston dynamics and electric power output of the linear engine
+under the effects of key parameters such as reciprocating mass,
+spark timing and spring stiffness. The operation of the linear
+engine is modeled and simulated based on a combination of three
+mathematical models including a dynamic model, a linear
+alternator model and a thermodynamic model. The dynamic model
+includes an analysis of the piston motion, based on Newton’s
+second law. The linear alternator model includes an analysis of
+electromagnetic force, which is considered to be a resistance force
+for the piston motion. The thermodynamic model is used to
+analysis thermodynamic processes in the engine cycle including
+compression, combustion, expansion and scavenging processes.
+Therein the scavenging process is assumed to be a perfect process.
+The linear engine uses propane as a fuel, because propane has a
+high octane number and can be easily mixed with air to make a
+homogeneous charge.
+2. Experimental study
+2.1. Experimental apparatus
+The experimental apparatus consists of the free-piston engine
+with kind of dual piston, flat-type linear generators, ignition
+device, sensor parts, engine control parts and data acquisition
+parts. Figs. 1 and 2 show the photography and schematic diagram
+of experimental system, respectively. The optical displacement
+sensor (Kais Co.; KL3A-N1) is used to measure the position of trans-
+lator in real time. Besides, the position of translator is detected by
+two photo sensors (Sharp GP1S092HCPIF), and then a digital signal
+generated from the photo sensor is delivered to ECU. After the
+Nomenclature
+A area on the top of piston, m2
+Pl pressure in the left cylinder, Pa
+Pr pressure in the right cylinder, Pa
+F f friction force, N
+F e electromagnetic force, N
+F sl spring force in the left, N
+F sr spring force in the right, N
+k spring stiffness, N/m
+Dxl deformation of the left spring, m
+Dxr deformation of the right spring, m
+m reciprocating mass, kg
+x displacement of the piston, m
+x0 initial position of the piston, m
+t time, s
+p instantaneous pressure in the cylinder, Pa
+x m the maximum stroke of piston, m
+c specific heat ratio
+V instantaneous volume in the cylinder, m3
+Qc heat released in combustion, J
+Qin heat input, J
+Qht heat transfer, J
+v mass fraction burned
+t0 start of combustion, s
+Dt duration combustion, s
+MMF mean magneto motive force, A
+H c magnetic field strength, A/m
+hm thickness of permanent magnet, m
+s pole pitch, m
+sp width of permanent magnet, m
+s1 distance between coils, m
+Fig. 1. A photograph of experimental system.
+O. Lim et al. / Applied Energy 160 (2015) 746–760 747
+digital signal delivered to ECU is delayed as the set values by
+Matlab-simulink, it is sent to an ignition coil (Dynatek ARC-2).
+The delayed signal delivered from the ignition coil is again
+delivered to spark plug mounted on the cylinder head to ignite
+the air–fuel mixture in the cylinder. Fig. 3 shows a schematic of
+the free-piston linear engine. Therein, a spark plug is placed
+in the cylinder head to ignite the air/fuel mixture. A full stroke of
+the piston is 31 mm and an effective stroke length is 18 mm. The
+piston of the linear engine is combined with the translator of linear
+generator and is controlled by ECU through the linear generator.
+The schematic of the linear generator is shown in Fig. 4. The linear
+generator consists of two main components, a stator and a transla-
+tor. In the stator of linear generator, the copper windings are
+wrapped around the back iron made of silicon steel. The perma-
+nent magnets are mounted on the translator as a moving part.
+In order to start the free-piston linear engine, the linear
+generator will operate to drive the free-piston engine through
+the connecting rod system. This stage is called the motoring mode.
+After certain frequencies, the spark plugs are activated, and the
+combustion process will occur alternatively at each cylinder,
+forcing the connecting rod to move back and forth. The movement
+of the connecting rod will generate current in the wires due to the
+changing magnetic flux linked with the wire in the stator. This
+stage is called the firing mode or electric power generation. Table 1
+shows the specifications of the free-piston linear engine and the
+experimental conditions.
+2.2. Experimental methods
+Firstly, for investigating the generating power according to the
+input caloric value and electrical resistance, the air-propane mix-
+ture was put into combustion chamber directly with the following
+conditions: 4.56, 5.21, 5.88 and 6.53 kJ/s. The intake air flow rate
+was varied at 70, 80, 90, 100 liter per minute (Lpm), while the
+equivalence ratio is fixed at 1.0. Concurrently, electrical resistance
+was applied from 5 X to 40 X. The other parameters such as spark
+timing delay and air gap length (Lair_gap) were fixed at 1.0 ms and
+2.0 mm, respectively. Afterwards, the linear engine performance
+test was conducted.
+Secondly, to investigate the effects of the spark timing delay on
+the generating power of the linear engine, the spark timing was
+varied at 0.5, 1.0, 1.5 and 2.0 ms by using the Matlab/Simulink,
+which was installed at ECU (DSP board). According to the first
+experiments, the maximum electric power was induced when
+the equivalence ratio and electrical resistance were 1.0 and 20 X,
+respectively. Besides, the air gap length and input caloric value
+were fixed at 2.0 mm and 5.88 kJ/s, respectively.
+Thirdly, the experiment was performed to confirm generating
+power of the linear engine according to the equivalence ratio.
+The air flow rate was fixed as 90.0 Lpm before mixing with propane
+and input caloric value was varied at 4.70, 5.29, 5.88, 6.46, and
+7.05 kJ/s respectively. The equivalence ratio was varied from 0.8
+to 1.2 with the increment of 0.1.
+Finally, to investigate the effects of the air gap length on the
+generating power of the linear engine, experiment was performed.
+The air gap length was varied at 1.0 mm and 2.0 mm, while the
+electrical resistance was varied at 5, 10, 15, 20, 30 and 40 X,
+respectively. The equivalence ratio was fixed at 1.0 by fixing the
+air flow rate and input caloric value at 90.0 Lpm and 5.88 kJ/s,
+respectively. The spark timing delay was fixed at 1.5 ms. To change
+the air gap length, a thin plate of 1.0 mm was added between stator
+and engine block.
+2.3. Experimental results
+2.3.1. The effects of input caloric value
+Input caloric value (kJ/s) is calculated by multiplication
+between mass flow rate (kg/s) and lower heating value (LHV) of
+the fuel (kJ/kg). The input caloric value is varied at 4.56, 5.21,
+5.88, 6.53 kJ/s, while the equivalence ratio, spark timing delay
+and air gap length are fixed at 1.0, 1.5 ms and 2.0 mm, respectively.
+In order to provide more information for this study, the electrical
+resistance is varied from 5 X to 40 X with increment of 5 X. The
+effects of input caloric value on the piston velocity and stroke are
+shown in Fig. 5. It can be found that the maximum piston velocity
+at the input caloric value of 5.88 kJ/s is higher than that of others.
+In addition, the largest piston stroke is also found at the input calo-
+ric value of 5.88 kJ/s. This implies that the compression ratio of the
+linear engine obtains a highest value when the input caloric is
+adjusted to 5.88 kJ/s.
+Fig. 6 shows the effects of input caloric value on the generating
+power, indicated mean effective pressure (IMEP) and piston
+Free piston
+engine
+Intake port
+Exhaust port
+Permanent
+magnet
+SN
+Coil
+Spark
+plug
+Compressor
+Reed
+Valve
+Linear Alternator
+N S
+Spring
+LPG PC
+DSP Board
+Ignition coil
+DAQ
+Board
+Charge Amplifier
+ECU
+Ignition coil
+Photo sensor
+Pressure
+sensor
+Displacement sensor
+Pre-mixing Air
+Fig. 2. A schematic diagram of the experimental system.
+748 O. Lim et al. / Applied Energy 160 (2015) 746–760
+frequency. This figure shows that most of the generating power,
+IMEP and piston frequency at input caloric value of 5.88 kJ/s are
+higher than that of others. This is because the piston velocity is
+increased, which can be observed in Fig. 5. In Fig. 6, the highest
+generating power is found at the input caloric value of 5.88 kJ/s
+and electrical resistance of 20 X, with the value of 90.5 W. By
+increasing the electrical resistance from 20 X to 40 X, the generat-
+ing power has a reduced tendency. To explain this, at first, it is
+needed to know that the electrical power output is considered a
+multiplication of electromagnetic force with piston velocity [44],
+in which the electromagnetic force is considered a resistance force
+for the motion of piston. By increasing the electrical resistance
+from 20 X to 40 X, the electromagnetic force is decreased [45],
+and the decrement of the electromagnetic force is so much faster
+than the increment of velocity. As the result, the generating power
+has a reduced tendency.
+2.3.2. The effects of spark timing delay
+In this experiment, the spark timing delay can be adjusted by
+ECU. When the translator combined with piston is reciprocated, a
+5 V signal is generated immediately after a thin plate stuck on
+the translator is detected by the photo sensors. This signal is sent
+to ECU to define the spark timing delay. The spark timing is
+delayed from 0.5 to 2.0 ms with the increment of 0.5 ms by using
+Matlab/Simulink.
+Fig. 7 shows the effects of spark timing delay on the piston
+velocity and stroke. Therein, the larger piston strokes are found
+at the spark timing of 1.0 ms and 1.5 ms, while the maximum
+velocity of piston is found at spark timing of 1.5 ms.
+The effects of spark timing delay on the maximum
+piston stroke, in-cylinder pressure, piston frequency and generat-
+ing power are shown in Fig. 8. This figure shows that the
+generating power obtains a maximum value of 94 W when the
+spark timing delay is 1.5 ms. This is because the maximum velocity
+as well as frequency of the piston at the spark timing of 1.5 ms is
+higher than that of others. Besides, it can be seen that the maxi-
+mum in-cylinder pressure has an increased tendency as the spark
+timing is delayed from 0.5 ms to 1.5 ms. However, the maximum
+in-cylinder pressure as well as piston stroke is reduced as the spark
+timing is delayed to 2.0 ms. This is because the combustion of air/
+fuel mixture at spark timing delay 2.0 ms is almost occurred in
+expansion process. As the result, the maximum in-cylinder pres-
+sure and piston stroke at spark timing delay 2.0 ms are decreased,
+as shown in Fig. 8.
+2.3.3. The effects of equivalence ratio
+In order to vary the equivalence ratio, the air flow rate is fixed at
+90.0Lpm, while the input caloric value is varied at 4.70, 5.29, 5.88,
+6.46, 7.05 kJ/s, respectively. Therefore, the equivalence ratio is
+varied from 0.8 to 1.2 with the increment of 0.1. The electrical
+resistance, air gap length and the spark timing delay are fixed at
+30 X, 1.0 mm and 1.5 ms, respectively.
+Fig. 9 shows relation between piston velocity and stroke under
+the effect of equivalence ratio. This figure shows that the piston
+velocity and stroke is largest as the equivalence ratio is adjusted
+to / = 1.0.
+Fig. 10 shows the effect of equivalence ratio on the maximum
+piston stroke, in-cylinder pressure, piston frequency and generat-
+ing power. It can be seen that the generating power is increased
+as the equivalence ratio is adjusted from 0.8 to 1.0. However, the
+generating power is decreased when the equivalence ratio is
+higher than 1.0. This is occurred as a result of decreasing piston
+velocity as well as frequency when the equivalence ratio is
+increased from 1.0 to 1.2, as shown in Figs. 9 and 10. In Fig. 10,
+the in-cylinder pressure obtains a peak value at equivalence ratio
+/ = 1.0. This is because the piston stroke as well as compression
+a( ) Exhaust process (b) Intake process
+Pressure sensor
+Spark plug
+Exhaust
+Exhaust port opens (18 mm)
+Top dead center (0 mm)
+Intake
+Spark plug
+Pressure sensor
+Intake port opens (20 mm)
+Bottom dead center (31 mm)
+Fig. 3. Schematic of the free-piston engine. (a) Exhaust process. (b) Intake process
+Air gap
+Silicon-steel
+Coil (copper)
+Permanent magnet
+Fig. 4. Schematic of linear generator.
+Table 1
+The specifications of compact linear engine and experimental conditions.
+Bore 30 mm
+Maximum stroke 31 mm
+Effective stroke length 18 mm
+Reciprocating mass 0.8 kg
+Lower heating value of propane 46.3 MJ/kg
+Input caloric value 4.56, 5.21, 5.88, 6.53 kJ/s
+Spark timing delay 0.5, 1.0, 1.5, 2.0 ms
+Equivalence ratio 0.8, 0.9, 1.0, 1.1, 1.2
+Air gap length 1.0, 2.0 mm
+Electrical resistance 5, 10, 15, 20, 25, 30, 35, 40 X
+O. Lim et al. / Applied Energy 160 (2015) 746–760 749
+ratio of the linear engine is increased as the equivalence ratio is
+adjusted to / = 1.0.
+2.3.4. The effects of air gap length
+The experiment is performed to investigate the generating
+power of the linear engine under the effects of air gap length,
+which is varied at 1.0 mm and 2.0 mm.
+In order to provide more information for this study, the
+electrical resistance is varied at 5, 10, 15, 20, 25, 30 and 40 X.
+The equivalence ratio, input caloric value are fixed at 1.0 and
+5.88 kJ/s, respectively, while the ignition timing delay is fixed at
+1.5 ms. The generating voltage and current were measured by
+varying the electrical resistance from 5 X to 40 X at each condition
+of the air gap length.
+As can be seen in Fig. 11, the generating power is increased as
+the air gap length is decreased from 2.0 mm to 1.0 mm at each
+condition of electrical resistance. This is also appropriate with
+results obtained in previous study [32]. The highest generating
+power is obtained at the air gap length of 1.0 mm and the electrical
+resistance of 30 X.
+Summarily, the maximum generating power is 111 W when the
+experimental conditions are that the air gap length, electrical
+resistance, equivalence ratio and spark timing delay are 1.0 mm,
+30 X, 1.0 and 1.5 ms, respectively.
+2.3.5. Durable test of the linear engine
+The durable test was defined as the sum of all the experiments
+at the same experiment conditions. In the durable test, the linear
+Fig. 5. The effects of input caloric value on piston velocity and stroke.
+Fig. 6. The effects of input caloric value on generating power.
+750 O. Lim et al. / Applied Energy 160 (2015) 746–760
+engine was operated continuously during one test. Fig. 12 shows a
+graph of running time and total running time during 40 days. The
+results of durable test are shown in Fig. 13. It can be seen that there
+are no problems for the linear engine after about one hundred
+hours of the durable test.
+3. Simulation study
+The operating model of the FPLE is shown in Fig. 14. Therein, the
+FPLE is the combination of two main components including a free
+piston engine and a flat-type linear generator, which are described
+in Figs. 3 and 4. The geometric parameters of the free piston engine
+are shown in Fig. 15. Table 2 shows the specifications and operat-
+ing conditions of the linear engine.
+Based on the operating model of FPLE, a combination of three
+mathematical models including a dynamic model, a linear alternator
+model and a thermodynamic model is established. The dynamic
+model included an analysis of the piston motion, based on Newton’s
+second law. The linear alternator model included an analysis of elec-
+tromagnetic force, which was considered to be a resistance force for
+the piston motion. The thermodynamic model was used to analysis
+thermodynamic processes in the engine cycle, including scavenging,
+compression, combustion, and expansion processes. Therein, the
+scavenging process was assumed to be a perfect process.
+3.1. Piston dynamic model
+The forces applied on the FPLE are expressed through a free
+body diagram as shown in Fig. 16. For the free piston engine, the
+dual piston is affected by forces generating from the pressure in
+the left and right cylinders. The motion of the dual piston is also
+affected by metal spring installed in each cylinder of the compres-
+sor. The metal spring is always compressed during the motion of
+the dual piston. Therefore, it produces elastic forces described in
+Fig. 16. For the linear alternator, electromagnetic force generated
+in air gap between stator and translator is considered as a resis-
+tance force for the piston motion. In Fig. 16, the moving mass
+including dual piston, connecting system, permanent magnet is
+assumed to move from left side to right side, the electromagnetic
+force and friction force have an opposite direction. The motion of
+the piston obeys Newton’s second law, and the piston acceleration
+is determined by:
+F  F f  F e þ F sl  F sr ¼ m d2x
+dt2 ð1Þ
+Fig. 7. The effects of spark timing delay on piston velocity and stroke.
+Fig. 8. The effects of spark timing delay on maximum stroke, in-cylinder pressure,
+frequency and generating power.
+O. Lim et al. / Applied Energy 160 (2015) 746–760 751
+where F = (Pl-P r )A, F f is friction force, Fe is electromagnetic force, F sl
+and Fsr are the spring force to the left and right, respectively. These
+spring forces are calculated by equations:
+F sl ¼ kDx l ð2Þ
+F sr ¼ kDx r ð3Þ
+3.2. Linear generator model
+Based on the structure of linear generator described in Fig. 4, a
+single-phase linear generator model with a permanent magnet is
+built, as shown in Fig. 17 [46].
+In Fig. 17, a magneto motive force (MMF) in the air gap is gen-
+erated by the permanent magnet mounted on the translator. Based
+on the description in Fig. 17, the MMF can be obtained as:
+M F ¼
+0 0 < x t < ssp
+2
+M p
+ssp
+2 < x t < sþsp
+2
+0 sþsp
+2 < x t < 3ssp
+2
+M p
+3ssp
+2 < x t < 3sþsp
+2
+0 3sþsp
+2 < x t < 2s
+8
+>>>>>>><
+>>>>>>>:
+ð4Þ
+where:
+x t is the coordinate survey point in the translator axis.
+M p = H c.hm, where Hc is the magnetic field strength, and hm is
+the thickness of the permanent magnet.
+s is the pole pitch
+sp is the width of the permanent magnet.
+The mean value of the MMF can be calculated by [47]:
+M F ¼ 4
+p M p sin psp
+2s
+ 
+sinðpx t
+s Þ ð5Þ
+Based on the mean value of the MMF, the flux density in the air gap
+is defined as follows:
+B ¼ l0
+g M F ¼ Bm sin px t
+s
+ 
+ð6Þ
+where:
+Bm ¼ l0
+g
+4
+p M p sin psp
+2s
+ 
+ð7Þ
+The flux contained in dxs is calculated by:
+d/ ¼ Bðx sÞdA ¼ Bðx sÞ  H  dxs ð8Þ
+By combining Eq. (6) with Fig. 17, Eq. (8) is rewritten as:
+d/ ¼ Bm  H  sinðpðx s  xÞ
+s Þ  dxs ð9Þ
+By applying the Faraday’s law, the voltage-generating operation of
+the linear engine is defined by:
+Fig. 9. The effects of equivalence ratio on piston velocity and stroke.
+Fig. 10. The effects of equivalence ratio on maximum stroke, in-cylinder pressure,
+frequency and generating power.
+752 O. Lim et al. / Applied Energy 160 (2015) 746–760
+Fig. 11. The effects of air gap length on generating power.
+Fig. 12. A graph of running time and total running time during 40 days.
+Fig. 13. Results of the durable test.
+Free piston
+engine
+Intake port
+Exhaust port
+Charge
+Flow
+Permanent
+magnet
+SN
+Coil
+Spark
+plug
+Compressor
+Reed
+Valve
+Linear Alternator
+N S
+Spring
+Fig. 14. The operating model of FPLE.
+O. Lim et al. / Applied Energy 160 (2015) 746–760 753
+e ¼  dk
+dt ¼ N coil
+d/
+dt ð10Þ
+The total flux can be derived based on the combination between
+Eqs. (9) and (10)
+k ¼ N coil
+Z s1
+0
+B m  H  sin pðx s  xÞ
+s
+ 
+dxs
+¼ s  H  N coil  Bm  2
+p  sin ps1
+2s  px
+s
+ 
+ sin ps1
+2s
+ 
+ð11Þ
+The voltage-generating operation is also calculated by a equivalent
+circuit of the linear generator, as shown in Fig. 18 [26,48]:
+e ¼ ðR I þ R LÞ  i þ L di
+dt ð12Þ
+The induced current in Eq. (12) can be easily derived as:
+i ¼ e
+R I þ R L
+1  eRI þRL
+L t
+ 
+ð13Þ
+Based on the induced current in Eq. (13), the electromagnetic force
+Fe mentioned in Eq. (1) is calculated as follows:
+F e ¼ i @k
+@x ð14Þ
+By combining Eqs. (10), (11), (13) and (14), the electromagnetic
+force can be derived as follows:
+F e ¼  1
+R I þ R L
+1  eRI þRL
+L t
+ 
+H2  N2
+coil  4  B2
+m  sin
+2 ps1
+2s
+ 
+ cos2 ps1
+2s  px
+s
+ 
+ dx
+dt ð15Þ
+3.3. In-cylinder thermodynamic model
+The thermodynamic model used in this paper is the single zone
+model, in which, temperature and pressure are assumed to be
+Le
+Li
+B
+0
+0 x
+0 +x mm-x -x m m+x
+Fig. 15. Geometric parameters of the free piston engine.
+Table 2
+Engine specifications and operating conditions.
+Bore (B) 30 mm
+Effective stroke length (Le) 18 mm
+Reciprocating mass (m) 0.8 kg
+Intake temperature (Tin ) 300 K
+Intake pressure (Pin) 1.1 bar
+Equivalence ratio (/) 1.0
+Spark timing (xig) 5 mm
+Number of turns in the coil (N coil) 240
+Load resistance (RL ) 30 X
+Spring stiffness (k) 2.9 N/mm
+Lower heating value of propane 46.3 MJ/kg
+SN
+N S
+0 x
+slF Fsr
+rP A
+Ff
+P Al
+eF
+Fig. 16. Free body diagram of the free piston linear engine.
+Fig. 17. Model of single-phase linear generator.
+Fig. 18. Equivalent circuit of the linear generator.
+754 O. Lim et al. / Applied Energy 160 (2015) 746–760
+uniform. The model includes processes such as compression,
+combustion, expansion.
+Compression begins where the piston starts to close the exhaust
+ports. In the study, the compression process is assumed to be
+isentropic, which implies the following relationships:
+pi V n
+i ¼ pc V n
+c ð16Þ
+pec V m
+ec ¼ pe V m
+e ð17Þ
+where
+pi is the intake pressure
+pc is the compressed pressure
+Vi is the exhaust port closing volume
+Vc is the compressed volume
+pec is the pressure at the end of combustion process
+pe is the expansion pressure
+Vec is the volume at the end of combustion process
+Ve is the expansion volume
+n, m is the polytropic coefficient of compression and expansion,
+respectively.
+The in-cylinder pressure variation due to the combustion can be
+archived with the derivation form of the first law of
+thermodynamics:
+dp
+dt ¼ c p
+V
+dV
+dt þ c  1
+V
+dQ c
+dt
+ 
+ð18Þ
+where Q c is the heat of combustion calculated by:
+dQ c
+dt ¼ dQ in
+dt  dQ ht
+dt ð19Þ
+where Qin is the heat input, Q ht is the heat transfer calculated in
+[49,50]
+The heat release rate dQin /dt is calculated based on the mass
+fraction burned, which can be found through the Wiebe function
+[33]:
+v ¼ 1  exp a t  t0
+Dt
+ mþ1
+" #
+ð20Þ
+From Eq. (20), the mass fraction burned rate is calculated as:
+dv
+dt ¼ a m þ 1
+Dt
+t  t0
+Dt
+ m
+exp a t  t0
+Dt
+ mþ1
+" #
+ð21Þ
+Based on Eq. (21), the heat release rate dQin/dt can be calculated as:
+dQ in
+dt ¼ a m þ 1
+Dt
+t  t0
+Dt
+ m
+exp a t  t0
+Dt
+ mþ1
+" #
+Q in ð22Þ
+3.4. Simulation results
+3.4.1. Validation between simulation and experiment
+The simulation results compared with experimental data
+include in-cylinder pressure, velocity of piston and electric power
+output, which are the most typical parameters of the numerical
+models. Therein, the simulation results are compared with experi-
+mental data in the same initial conditions as shown in Table 2.
+The simulation and experimental results for in-cylinder pres-
+sure and volume are shown in Fig. 19. It can be seen that there
+are no significant differences between the simulated pressure
+curves and experimental pressure curves. Fig. 20 shows the simu-
+lation and experimental results for piston velocity and displace-
+ment. This figure shows that the simulated velocity curves and
+experimental velocity curves are closely similar. The simulation
+and experimental results for electric power output are shown
+Table 3. It can be seen that the simulation results and experimental
+data for electrical power output are not considerably different
+when the load resistance is changed from RL = 30 X to RL = 40 X.
+0 5000 10000 15000 20000 25000
+Volume [mm 3 ]
+0
+2x10
+6
+4x10
+6
+6x106
+In-cylinder Pressure [Pa]
+Simulation
+Experiment
+Fig. 19. Relation between in-cylinder pressure and volume.
+-20 -10 0 10 20
+Displacement [mm]
+-6000
+-4000
+-2000
+0
+2000
+4000
+6000
+Velocity [mm/s]
+Simulation
+Experiment
+Fig. 20. Relation between piston velocity and displacement.
+Table 3
+The effect of load resistance on the electric power output.
+Load resistance R L (X) Electric power output (W) Error (%)
+Simulation Experiment
+30 118.3 111.3 5.92
+35 105.1 107.5 2.23
+40 100.5 102.2 1.66
+O. Lim et al. / Applied Energy 160 (2015) 746–760 755
+3.4.2. The effects of key parameters on the electric power output of the
+FPLE
+3.4.2.1. The effects of reciprocating mass. One of key parameters
+affecting directly to piston motion is reciprocating mass which
+includes dual piston, connecting rod and permanent magnet. By
+changing reciprocating mass, the inertial force will be changed
+and it affects to piston stroke as well as compression ratio of the
+linear engine. In this study, the reciprocating mass is changed at
+0.7, 0.8, 0.9, and 1.0 kg, while the other conditions are retain con-
+stant as shown in Table 2.
+The effects of reciprocating mass to the electric power output,
+maximum piston displacement and velocity are shown in Fig. 21.
+It can be seen that the maximum piston velocity is reduced signif-
+icantly with the decrement of 14.5%, while the maximum piston
+displacement is increased only 1.2% as the reciprocating mass is
+increased from 0.7 kg to 1.0 kg. This is because the inertial force
+is increased when increasing the reciprocating mass. Besides, by
+increasing reciprocating mass, the electric power output is reduced
+around 27.2%. The decrease of maximum piston velocity is consid-
+ered one of causes of this phenomenon [44].
+3.4.2.2. The effects of spark timing. In the conventional engines with
+a crankshaft mechanism, the spark timing is determined by a crank
+angle. For the free piston linear engine, the crankshaft is not
+included, the spark timing is determined by a piston position in
+cylinder, where a spark ignition is occurred controlled by ECU. To
+investigate the effects of spark timing to the piston dynamics
+and electric power output of the linear engine, the spark timing
+is changed at 8, 7, 6, and 5 mm, while the other conditions are kept
+constant as shown in Table 2.
+The effects of spark timing to the piston dynamics and electric
+power output of the linear engine are shown in Fig. 22. This figure
+shows that the maximum piston velocity and displacement are
+increased about 18.8% and 17.5% respectively when the spark tim-
+ing is adjusted from xig = 8 mm to xig = 5 mm. This is explained that
+when the spark timing is adjusted toward the cylinder head, the
+heat release after top dead center (TDC) is increased. As the result,
+the maximum piston velocity and displacement is increased.
+The increase of the piston velocity leads to increasing of the
+electric power output as shown in Fig. 22. Namely, when the spark
+timing is adjusted from xig = 8 mm to xig = 5 mm, the electric power
+output is increased about 22.4%.
+3.4.2.3. The effects of spring stiffness. In this study, a metal spring is
+installed in each cylinder of the compressor. The objective of this
+work is to prevent a collision between piston crown and cylinder
+head. Besides, the metal spring can store mechanical energy in
+compression stroke and release mechanical energy in expansion
+stroke of the piston in cylinder. The change of spring stiffness
+affects directly on storing and releasing the mechanical energy,
+and it also affects to piston stroke as well as compression ratio of
+the linear engine. In this study, the spring stiffness is changed at
+0.5, 1, 2.9, and 14.7 N/mm, while the other operating conditions
+are kept constant as shown in Table 2.
+Fig. 23 describes the effects of spring stiffness to the piston
+dynamics and electric power output of the linear engine. This fig-
+ure shows that the maximum piston velocity is increased consider-
+ably with the increment of 27.9%, while the maximum piston
+displacement only increases about 1.9%. This is explained that
+when the spring stiffness is increased, the thrust force is increased
+leading to increasing of piston velocity, however, it also causes a
+high resistance force due to dual piston structure, and this explains
+0.6 0.7 0.8 0.9 1 1.1
+Reciprocating mass [kg]
+90
+100
+110
+120
+130
+Electric power output [W]
+27.5
+28
+28.5
+Maximum displacement [mm]
+Electric power output
+Maximum displacement
+Maximum velocity
+4100
+4300
+4500
+4700
+4900
+Maximum velocity [mm/s]
+Fig. 21. The effects of reciprocating mass to electric power output, maximum
+piston displacement and velocity.
+4 5 6 7 8 9
+Spark timing [mm]
+90
+105
+120
+Electric power output [W]
+23
+26
+29
+Maximum displacement [mm]
+Electric power output
+Maximum displacement
+Maximum velocity
+3800
+4025
+4250
+4475
+4700
+Maximum velocity [mm/s]
+Fig. 22. The effects of spark timing to electric power output, maximum piston
+displacement and velocity.
+0 2.5 5 7.5 10 12.5 15
+Spring stiffness [N/mm]
+100
+115
+130
+145
+160
+Electric power output [W]
+28
+28.5
+29
+Maximum displacement [mm]
+Electric power output
+Maximum displacement
+Maximum velocity
+4200
+4650
+5100
+5550
+6000
+Maximum velocity [mm/s]
+Fig. 23. The effects of spring stiffness to electric power output, maximum piston
+displacement and velocity.
+756 O. Lim et al. / Applied Energy 160 (2015) 746–760
+why the piston displacement is increased slightly. As can be seen in
+Fig. 23, the electric power is increased about 30.8% when increas-
+ing spring stiffness from k = 0.5 N/mm to k = 14.7 N/mm. This is
+explained by increasing of piston velocity as the spring stiffness
+is increased, as shown in Fig. 23. Fig. 24 shows the effects of spring
+stiffness and reciprocating mass to thermal efficiency of the linear
+engine. In this figure, the spring stiffness and reciprocating mass
+are varied with values mentioned, while the spark timing is
+retained at xig = 5 mm. This result shows that the thermal effi-
+ciency is increased significantly if the reciprocating mass is
+increased at each value of spring stiffness. Meanwhile, by changing
+spring stiffness shown in Fig. 24, the thermal efficiency is slightly
+varied.
+3.4.2.4. Optimization of electric power output. A study is conducted
+to optimized the electric power output based on the simulation
+results as mentioned above. In this study, the effects of reciprocat-
+ing mass and spark timing on the electric power output are
+investigated first, while the spring stiffness is kept constant
+k = 2.9 N/mm. Therein, spark timing is changed from xig = 5 mm
+to xig = 8 mm, while reciprocating mass is changed from
+m = 0.7 kg to m = 1 kg. The objective of this work is to find out
+the highest value of electric power output corresponding to one
+value of reciprocating mass and spark timing.
+Fig. 25 shows a graph of the electric power output versus
+reciprocating mass and spark timing. The simulation results show
+that the electric power output is increased as the spark timing is
+adjusted from xig = 8 mm to xig = 5 mm for each value of reciprocat-
+ing mass. When the reciprocating mass is reduced from m = 1.0 kg
+to m = 0.7 kg, the electric power output is increased for each value
+of spark timing. This is explained by increasing of maximum piston
+velocity caused by reducing reciprocating mass, as shown in
+Fig. 21. As can be seen in Fig. 25, the highest electric power output
+is found with the value of 128.2 W as the spark timing and recip-
+rocating mass are xig = 5 mm and m = 0.7 kg, respectively. The elec-
+tric power output is increased about 27.2% as reciprocating mass is
+reduced from m = 1.0 kg to m = 0.7 kg, while the spark timing is
+kept constant xig = 5 mm.
+As can be seen in Fig. 25, the highest electric power output of
+the FPLE is found at spark timing xig = 5 mm. Hence, the spark tim-
+ing xig = 5 mm is retained constant in investigating the effects of
+reciprocating mass and spring stiffness to the electric power out-
+put of the linear engine. Fig. 26 shows a graph of the electric power
+output versus reciprocating mass and spring stiffness. The simula-
+tion results show that, at each value of reciprocating mass, the
+electric power output is increased considerably when increasing
+spring stiffness from k = 0.5 N/mm to k = 14.7 N/mm. For instance,
+the electric power output is increased about 30.8% as the spring
+stiffness is increased from k = 0.5 N/mm to k = 14.7 N/mm at the
+same reciprocating mass m = 0.8 kg. This is because the maximum
+piston velocity is increased as described in Fig. 23. Fig. 26 shows
+that, at each constant value of spring stiffness, the electric power
+0.7
+0.8
+0.9
+1
+44
+45
+46
+47
+48
+0.5
+1
+2.9
+14.7
+Thermal efficiency [%]
+Spring sffness [N/mm] Reciprocang mass [kg]
+47-48
+46-47
+45-46
+44-45
+Fig. 24. The effects of spring stiffness and reciprocating mass to the thermal efficiency.
+5
+6
+7
+8
+0
+20
+40
+60
+80
+100
+120
+140
+0.7
+0.8
+0.9
+1
+Electric power output [W]
+Reciprocang mass [kg]
+Spark ming [mm]
+120-140
+100-120
+80-100
+60-80
+40-60
+20-40
+0-20
+Fig. 25. Electric power output versus reciprocating mass and spark timing.
+O. Lim et al. / Applied Energy 160 (2015) 746–760 757
+output is also increased when decreasing reciprocating mass. As
+can be seen in Fig. 26, the maximum electric power output is found
+at spring stiffness and reciprocating mass are k = 14.7 N/mm and
+m = 0.7 kg, respectively. Based on the analysis presented above,
+the optimized value of electric power output (Pe = 188 W) is found
+at spark timing xig = 5 mm, reciprocating mass m = 0.7 kg, and
+spring stiffness k = 14.7 N/mm.
+In order to evaluate amount of thermal energy converted to
+electric energy, a study of energy conversion efficiency between
+thermal energy and electric energy also needs to be examined. In
+0.5
+1
+2.9
+14.7
+0
+20
+40
+60
+80
+100
+120
+140
+160
+180
+200
+0.7
+0.8
+0.9
+1
+Electric power output [W]
+Reciprocang mass [kg]
+Spring sffness [N/mm]
+180-200
+160-180
+140-160
+120-140
+100-120
+80-100
+60-80
+40-60
+20-40
+0-20
+Fig. 26. Electric power output versus reciprocating mass and spring stiffness.
+0.7
+0.8
+0.9
+1
+0
+5
+10
+15
+20
+25
+5
+6
+7
+8
+Conversion efficiency [%]
+Spark ming [mm]
+Reciprocang mass [kg]
+20-25
+15-20
+10-15
+5-10
+0-5
+Fig. 27. Effects of reciprocating mass and spark timing on the energy conversion efficiency.
+0.7
+0.8
+0.9
+1
+0
+5
+10
+15
+20
+25
+30
+0.5
+1
+2.9
+14.7
+Conversion efficiency [%]
+Spring sffness [N/mm]Reciprocang mass [kg]
+25-30
+20-25
+15-20
+10-15
+5-10
+0-5
+Fig. 28. Effects of reciprocating mass and spring stiffness on the energy conversion efficiency.
+758 O. Lim et al. / Applied Energy 160 (2015) 746–760
+this study, the energy conversion efficiency (gc) is calculated by a
+ratio between electric power output (Pe) and indicated power
+(Pi), gc = Pe/Pi. Fig. 27 shows the effects of reciprocating mass and
+spark timing on the energy conversion efficiency. This figure shows
+that the linear engine get a benefit of the energy conversion effi-
+ciency as the reciprocating mass is reduced, while the change of
+spark timing has no significant effect to the energy conversion effi-
+ciency at the same reciprocating mass. Fig. 28 shows the effects of
+reciprocating mass and spring stiffness on the energy conversion
+efficiency. It can be seen that, both reciprocating mass and spring
+stiffness affect considerably to the energy conversion efficiency.
+As can be seen in Fig. 28, the maximum energy conversion
+efficiency is found at reciprocating mass m = 0.7 kg and spring
+stiffness k = 14.7 N/mm.
+4. Conclusion
+As a main part of this study, an experiment on the linear engine
+has been conducted. The linear engine performance test was con-
+ducted by changing the main parameters such as input caloric
+value, spark timing delay, equivalence ratio, electrical resistance
+and air gap length. The experimental results indicated that the
+electrical resistance has a negative effect on the generating power
+if it over one certain value. The maximum generating power was
+found with the value of 111 W at the input caloric value, spark tim-
+ing delay, equivalence ratio, electrical resistance and air gap length
+were 5.88 kJ/s, 1.5 ms, 1.0, 30 X and 1.0 mm, respectively. A dur-
+able test was conducted to observe the behavior of the linear
+engine after about 100 h of the durable test. The experimental
+results showed that there were no problems for the linear engine
+after about one hundred hours of the durable test. Beside the
+experimental study, a simulation study has been conducted based
+on the combination of three mathematical models. By using these
+mathematical models, the simulation results including piston
+velocity, in-cylinder pressure and electric power output were
+nearly similar to experimental data. Besides, the effects of key
+parameters such as reciprocating mass, spark timing and spring
+stiffness on the piston dynamics and electric power output of the
+linear engine were also investigated. The simulation results
+showed that a highest generating power of the linear engine could
+be easily found by optimizing the key parameters. The optimized
+generating power was Pe = 188 W, which corresponded to spark
+timing xig = 5 mm, reciprocating mass m = 0.7 kg, and spring stiff-
+ness k = 14.7 N/mm.
+Current work mainly focused on the generating power and find-
+ing the suitable conditions to optimize the generating power of the
+free-piston linear engine. The next stage is to investigate further
+the piston dynamics and combustion characteristics of the linear
+engine in spark ignition mode and advanced ignition mode (homo-
+geneous charge compression ignition mode). Furthermore, the
+various fuels will be used in the linear engine such as diesel,
+DME and hydrogen et al.
+Acknowledgement
+This work was supported by the 2015 Research Fund of Univer-
+sity of Ulsan.
+References
+[1] Mikalsen R, Roskilly A. A review of free-piston engine history and application.
+Appl Therm Eng 2007;27:2339–52.
+[2] Nagy C, Clark N. The linear engine in 2004. SAE Technical Paper; 2005, 2005-
+01-2140.
+[3] Prados A. Towards a Linear Engine. Stanford University Thesis; 2002.
+[4] Mikalsen R, Roskilly AP. A computational study of free-piston diesel engine
+combustion. Appl Energy 2009;86:1136–43.
+[5] Clark N, Nandkumar S, Atkinson C, Atkinson R, McDaniel T, Petreanu S et al.
+Operation of a small bore two-stroke linear engine. In: Proc. of the fall
+technical conference of the ASME Internal Combustion Engine Division; 1998
+(1), p. 33–40.
+[6] Clark N, McDaniel T, Atkinson R, Nandkumar S, Atkinson C, Petreanu S, Tennant
+C, Famouri P. Modeling and development of a linear engine. Spring technical
+conference, ASME ICE Division, Ft. Lauderdale, FL; 1998.
+[7] Carter D, Wechner E. The free piston power pack: sustainable power for hybrid
+electric vehicles. SAE Technical Paper; 2003, 2003-01-3277.
+[8] Goldsborough S, Van Blarigan P. Optimizing the scavenging system for a two-
+stroke cycle, free piston engine for high efficiency and low emissions: a
+computational approach. SAE Technical Paper; 2003, 2003-01-0001.
+[9] Van Blarigan P. Advanced internal combustion electrical generator. In:
+Proceedings of 2002 US DOE hydrogen program review; 2002.
+[10] Mikalsen R, Roskilly A. The design and simulation of a two-stroke free-piston
+compression ignition engine for electrical power generation. Appl Therm Eng
+2008;28:589–600.
+[11] Kosaka H, Akita T, Moriya K, Goto S. et al. Development of free piston engine
+linear generator system part 1 – investigation of fundamental characteristics.
+SAE Technical Paper; 2014, 2014-01-1203.
+[12] Xu P, Chang Q. Prototype testing and analysis of a novel internal combustion
+linear generator integrated power system. Appl Energy 2010;87:1342–8.
+[13] Ibrahim A, Abidin E, Aziz A, Zulkifli S. Effect of compression ratio and applied
+voltage on free-piston linear generator engine. Int J Eng Phys Sci 2012.
+[14] Kock F, Haag J, Friedrich H. The free piston linear generator – development of
+an innovative, compact, highly efficient range-extender module. SAE Technical
+Paper; 2013, 2013-01-1727.
+[15] Bergman M, Fredriksson J, Golovitchev V. CFD-based optimization of a diesel-
+fueled free piston engine prototype for conventional and HCCI combustion.
+SAE Int J Engines 2009;1:1118–43.
+[16] Caresana F, Comodi G, Pelagalli L. Design approach for a two-stroke free piston
+engine for electric power generation. SAE Technical Paper; 2004, 2004-32-
+0037.
+[17] Van Blarigan P, Paradiso N, Goldsborough S. Homogeneous charge
+compression ignition with a free piston: a new approach to ideal otto cycle
+performance. SAE Technical Paper; 1998, 982484.
+[18] Kleemann A, Dabadie J, Henriot S. Computational design studies for a high-
+efficiency and low-emissions free piston engine prototype. SAE Technical
+Paper; 2004, 2004-01-2928.
+[19] Haag J, Kock F, Chiodi M, Mack O. et al. Development approach for the
+investigation of homogeneous charge compression ignition in a free-piston
+engine. SAE Technical Paper; 2013, 2013-24-0047.
+[20] Bergman M, Golovitchev V. CFD Modeling of a two-stroke free piston energy
+converter using detailed chemistry. SAE Technical Paper; 2005, 2005-24-074.
+[21] Li K, Santiago W, Sun Z. Modeling of a two-stroke free-piston engine with HCCI
+combustion. ASME dynamic systems and control conference, Cambridge,
+Massachusetts, USA, Vol. 1; 2010.
+[22] Xu S, Wang Y, Zhu T, Xu T, Tao C. Numerical analysis of two-stroke free piston
+engine operating on HCCI combustion. Appl Energy 2011;88:3712–25.
+[23] Chiang CJ, Yang JL, Lan SY, Shei TW, Chiang WS, Chen BL. Dynamic modeling of
+a SI/HCCI free-piston engine generator with electric mechanical valves. Appl
+Energy 2013;102:336–46.
+[24] Fredriksson J, Denbratt I. Simulation of a two-stroke free piston engine. SAE
+Technical Paper; 2004, 2004-01-1871.
+[25] Goldsborough S, Van Blarigan P. A numerical study of a free piston ic engine
+operating on homogeneous charge compression ignition combustion. SAE
+Technical Paper; 1999, 1999-01-0619.
+[26] Li QF, Xiao J, Huang Z. Simulation of a two-stroke free piston engine for
+electrical power generation. Energy Fuel 2008;22:3443–9.
+[27] Mikalsen R, Roskilly P. Predictive piston motion control in a free-piston
+internal combustion engine. Appl Energy 2010;87:1722–8.
+[28] Goto S, Moriya K, Kosaka H, Akita T. et al. Development of free piston engine
+linear generator system part 2 – investigation of control system for generator.
+SAE Technical Paper; 2014, 2014-01-1193.
+[29] Nemecek P, Vysoky O. Control of two-stroke free-piston generator. Proceeding
+of 6th Asian control conference; 2006.
+[30] Mikalsen R, Roskilly A. The control of a free-piston engine generator. Part 1:
+fundamental analysis. Appl Energy 2010;87:1273–80.
+[31] Mikalsen R, Roskilly A. The control of a free-piston engine generator. Part 2:
+engine dynamics and piston motion control. Appl Energy 2010;87:1281–7.
+[32] Li QF, Xiao J, Huang Z. Flat-type permanent magnet linear alternator: a suitable
+device for a free piston linear alternator. J Zhejiang University 2009;10:
+345–52.
+[33] Atkinson C, Petreanu S, Clark N, Atkinson R, McDaniel T, Nandkumar S,
+Famouri P. Numerical simulation of a two-stroke linear engine-alternator
+combination. SAE Technical Paper; 1999, 1999-01-0921.
+[34] Shoukry E, Taylor S, Clark N. Numerical simulation for parametric study of a
+two-stroke direct injection linear engine. SAE Technical Paper; 2002, 2002-01-
+1739.
+[35] Clark N, Nandkumar S, Famouri P. Fundamental analysis of a linear two-
+cylinder internal combustion engine. SAE Technical Paper; 1998, 982692.
+[36] Cawthorne W, Famouri P, Chen J, Clark N, McDaniel T, Atkinson R, et al.
+Development of a linear alternator-engine for hybrid electric vehicle
+applications. IEEE Trans Vehicular Technol 1999;48:1797–802.
+[37] Goertz M, Peng L. Free Piston engine its application and optimization. SAE
+Technical Paper; 2000, 2000-01-0996.
+O. Lim et al. / Applied Energy 160 (2015) 746–760 759
+[38] Li QF, Xiao J, Huang Z. Parametric study of a free piston linear alternator. Int J
+Automot Technol 2010;11:111–7.
+[39] Li L, Luan Y, Wang Z, Deng J, Wu Z. Simulations of key design parameters and
+performance optimization for a free-piston engine. SAE Technical Paper; 2010,
+2010-01-1105.
+[40] Xiao J, Li QF, Huang Z. Motion characteristic of a free piston linear engine. Appl
+Energy 2010;87:1288–94.
+[41] Kim J, Bae C, Kim G. Simulation on the effect of the combustion parameters on
+the piston dynamics and engine performance using the Wiebe function in a
+free piston engine. Appl Energy 2013;107:446–55.
+[42] Mikalsen R, Roskilly A. Performance simulation of a spark ignited free-piston
+engine generator. Appl Therm Eng 2008;28:1726–33.
+[43] Mikalsen R, Roskilly A. Coupled dynamic-multidimentional modelling of free-
+piston engine combustion. Appl Energy 2009;86:89–95.
+[44] Rerkpreedapong. Field analysis and design of a moving iron linear alternator
+for use with linear engine. Master’s thesis, West Virginia University, USA;
+1999.
+[45] Cawthorne W, Famouri P, Clark N. Integrated design of linear alternator/engine
+system for HEV auxiliary power unit. Electric Machines and Drives Conference,
+2001, p. 267–74.
+[46] Deng Z, Boldea I, Nasar SA. Fields in permanent magnet linear synchronous
+machines. IEEE Trans Magn 1986;22:107–12.
+[47] Wang JB, Howe D. A linear permanent magnet generator for a free-piston
+energy converter. IEEE international conference on electric machines and
+drives; 2005, p. 1521–28.
+[48] Cawthorne WR. Optimization of a brushless permanent magnet linear
+alternator for use with a linear internal combustion engine. PhD Thesis,
+West Virginia University; 1999.
+[49] Heywood JB. Internal combustion engine fundamentals. New York,
+USA: McGraw-Hill Book Company; 1998.
+[50] Hairuddin A, Wandel A, Yusaf T. Effect of different heat transfer models on a
+diesel homogeneous charge compression ignition engine. Int J Automot Mech
+Eng (IJAME) 2013;8:1292–304.
+760 O. Lim et al. / Applied Energy 160 (2015) 746–760
