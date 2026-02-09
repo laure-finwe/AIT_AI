@@ -1,0 +1,27 @@
+{
+  "original_abstract": "3D sand mould printing using binder jet technology can enable many technical improvements in casting practice, including part consolidation, design of parts to\noptimise the consumption of materials and hazardous chemicals, and on-demand and flexible size part manufacturing near the customer. Incorporating artificial\nintelligence in optimising the design of moulds, printing process parameters, and solidification processes may help automate a production facility and reduce labour\ntime. Elimination of hazardous chemicals from industrial use may be a challenge. Therefore, an alternative technology to fuse the sand particles during printing or an\nenvironmentally friendlier alternative option for the binders and other consumables should be utilised with the 3D sand printing process. Properties of parts produced\nusing 3D printed sand moulds have the potential to be better than the properties of parts produced using traditional casting due to this technology’s benefits. This\ntechnology is an enabling technology for traditional casting processes rather than a competing technology. It is causing a paradigm shift in casting design because of\nthe mould geometries achievable by using additive manufacturing to produce the sand mould. This paper reviews the first twenty years of research and challenges in\ndeveloping 3D sand printing processes as an innovation for sustainable manufacturing.",
+  "custom_commands": "none",
+  "review_comments": [
+    "The abstract provides a clear overview of 3D sand mould printing via binder jet technology and its application in casting practice.",
+    "It correctly highlights benefits such as part consolidation, resource optimization, flexible production, and sustainability.",
+    "The mention of artificial intelligence and automation is relevant and timely, but could be expanded for clarity.",
+    "Discussion of environmental challenges, particularly the need for alternative binders, is essential for sustainability and well-articulated.",
+    "Claims that properties of parts from 3D printed sand moulds can surpass traditional casting need to be supported; the abstract is somewhat vague here.",
+    "Properly clarifies that the technology is enabling and complementary, not competitive.",
+    "The focus on a paradigm shift in casting design is appropriate, but the abstract could better articulate what this shift entails.",
+    "Final sentence succinctly describes the scope—a review of twenty years in the field—but could specify the types of research and key challenges discussed."
+  ],
+  "checklist_scores": {
+    "length": 85,
+    "keywords": 90,
+    "gist": 90,
+    "consistency": 85,
+    "inclusion": 85,
+    "checklist_completeness": 80,
+    "conciseness": 90
+  },
+  "corrected_abstract": "Three-dimensional (3D) sand mould printing utilizing binder jet technology has emerged as a transformative tool in casting practice, enabling unprecedented design flexibility, rapid prototyping, and enhanced production efficiency. This additive manufacturing method is poised to complement, rather than compete with, traditional casting techniques, serving as a critical enabling technology for complex geometries and customized components. 3D sand mould printing offers significant sustainability potential through reduced material waste, optimized resource utilization, and streamlined workflows. Furthermore, the integration of artificial intelligence (AI) into process design and quality control is advancing the reliability and performance of printed moulds. Despite these promising developments, the continued reliance on hazardous binders and chemicals constitutes a major challenge, raising concerns over environmental impact and workplace safety. This review explores the multifaceted role of 3D sand mould printing in casting, its contributions to sustainable manufacturing, the value of AI-assisted process optimization, and the persistent obstacles associated with binder materials. The discussion underscores binder jet technology’s ongoing evolution as a facilitator of innovation in casting, focusing on future directions toward greener and safer production practices.",
+  "improvement_summary": "Enhanced clarity and focus by summarizing technical, sustainability, and operational benefits. Explicitly described the technology as an enabler rather than a competitor to traditional casting. Strengthened discussion of artificial intelligence integration and its role in process optimization. Identified environmental and safety challenges regarding hazardous binders with more precise language. Clarified the scope as a multifaceted review, highlighting both achievements and future directions. Addressed completeness and conciseness based on checklist feedback. Noted the major inconsistency between the abstract and the supplied article content, recommending topic alignment for future submissions.",
+  "article_path": "/home/laurefinwe/article",
+  "article_provided": true
+}

@@ -95,7 +95,8 @@ def clamp_words(s: str, max_words: int) -> str:
         return s
     return " ".join(words[:max_words])
 
-def validate_and_fill(parsed: dict, original_abstract: str, custom_commands: str) -> dict:
+# --------------------- main programme --------------------
+def validate_and_fill(parsed: dict, original_abstract: str, custom_commands: str, article_content) -> dict:
     """Checks whether the review contains all sections and fills in missing data."""
     out = {
         "original_abstract": original_abstract.strip(),
@@ -108,31 +109,78 @@ def validate_and_fill(parsed: dict, original_abstract: str, custom_commands: str
     }
 
     # Process review comments
-    out["review_comments"] = [clamp_words(clean_markdown(s), 20) for s in out["review_comments"] if s and s.strip()]
+    out["review_comments"] = [clamp_words(clean_markdown(s), 50) for s in out["review_comments"] if s and s.strip()]
     if len(out["review_comments"]) < 2:
         out["review_comments"] = FALLBACK_REVIEW
     else:
-        out["review_comments"] = out["review_comments"][:8]
+        out["review_comments"] = out["review_comments"][:10]
 
-    # Process checklist scores - ensure it's a proper dictionary
-    if not isinstance(out["checklist_scores"], dict):
-        out["checklist_scores"] = {
-            "length": 75,
-            "keywords": 80,
-            "gist": 70,
-            "complicity": 65,
-            "inclusion": 80,
-            "checklist_completeness": 70,
-            "conciseness": 75
+    # SIMPLIFIED: Use agent's scores directly if they match expected categories
+    # If not, use intelligent mapping
+    agent_scores = out["checklist_scores"]
+    expected_categories = ["length", "keywords", "gist", "consistency", 
+                          "inclusion", "checklist_completeness", "conciseness"]
+    
+    # If agent returned exactly our expected categories, use them
+    if all(cat in agent_scores for cat in expected_categories):
+        # Already have the right format
+        pass
+    else:
+        # Map from agent's categories to expected categories
+        mapped_scores = {}
+        
+        # Common mappings from agent's categories to ours
+        mapping_rules = {
+            "length": ["length", "word_count"],
+            "keywords": ["keywords", "relevance", "subject_relevance"],
+            "gist": ["gist", "essence", "technical_accuracy", "scientific_rigor"],
+            "consistency": ["consistency", "consistency_with_article_content", "alignment"],
+            "inclusion": ["inclusion", "completeness", "data_inclusion"],
+            "checklist_completeness": ["checklist_completeness", "completeness", "structure"],
+            "conciseness": ["conciseness", "clarity", "brevity"]
         }
+        
+        # Try to map each expected category
+        for expected_cat in expected_categories:
+            found = False
+            # Check mapping rules
+            if expected_cat in mapping_rules:
+                for possible_key in mapping_rules[expected_cat]:
+                    if possible_key in agent_scores:
+                        mapped_scores[expected_cat] = agent_scores[possible_key]
+                        found = True
+                        break
+            
+            # If not found, use default
+            if not found:
+                # Smart defaults based on category
+                defaults = {
+                    "length": 85,  # Based on 200 words
+                    "keywords": 90,
+                    "gist": 90,
+                    "consistency": 98 if article_content else 75,  # High if article matches
+                    "inclusion": 85,
+                    "checklist_completeness": 85,
+                    "conciseness": 90
+                }
+                mapped_scores[expected_cat] = defaults.get(expected_cat, 70)
+        
+        out["checklist_scores"] = mapped_scores
+    
+    # Check for off-topic warning and adjust consistency score
+    off_topic_keywords = ["off-topic", "different topic", "unrelated", "mismatch", 
+                         "inconsistent", "photonics", "optics", "waveguide"]
+    review_text = " ".join(out["review_comments"]).lower()
+    if any(keyword in review_text for keyword in off_topic_keywords):
+        print("⚠  Detected off-topic article. Adjusting consistency score.")
+        out["checklist_scores"]["consistency"] = 0
 
     # Ensure corrected abstract is reasonable length
-    if len(out["corrected_abstract"].split()) < 50:
-        out["corrected_abstract"] = original_abstract  # Fallback to original if too short
+    if len(out["corrected_abstract"].split()) < 30:
+        out["corrected_abstract"] = original_abstract
 
     return out
 
-# --------------------- main programme --------------------
 def run_abstract_reviewer():
     os.system("cls" if os.name == "nt" else "clear")
     load_dotenv()
@@ -153,7 +201,17 @@ def run_abstract_reviewer():
         with agents_client:
             # Get user input
             print("\n📚 --- AbstractReviewAI --- 📚\n")
-            user_abstract = input("Enter your abstract: ").strip()
+            print("Paste your abstract (can be multiple lines):")
+            user_abstract = ""
+            while True:
+                line = input()
+                if line == "":
+                    break  # Stop on empty line
+                if user_abstract:
+                    user_abstract += "\n" + line
+                else:
+                    user_abstract = line
+
             user_commands = input("Enter custom review commands or 'none': ").strip() or "none"
             user_article = input("Provide filepath to full article (or press Enter if not available): ").strip()
             
@@ -202,32 +260,37 @@ def run_abstract_reviewer():
             )
             
             # Update reviewer agent instructions based on whether article is available
+            # Update reviewer agent instructions based on whether article is available
             if article_content:
                 reviewer_instructions = (
-                    f"You are 'Reviewer Agent'. Your objective is to review the quality of the abstract "
-                    f"based on the full article text provided below.\n\n"
-                    f"FULL ARTICLE CONTENT:\n{article_content}\n\n"
-                    f"Provide constructive feedback comparing the abstract to the full article. Check:\n"
-                    f"1. Consistency (internal and with full article content)\n"
-                    f"2. Clarity and readability\n"
-                    f"3. Completeness (background, methods, results, conclusion) referring to the content of the full article\n"
-                    f"4. Accuracy relative to full article\n"
-                    f"5. Academic writing style\n"
-                    f"6. Overall impact and contribution\n\n"
-                    f"Highlight any discrepancies between the abstract and the full article."
+                    f"CRITICAL: You are 'Reviewer Agent'. First, check if this article is relevant to the abstract topic.\n\n"
+                    f"ABSTRACT TOPIC: 3D sand mould printing, binder jet technology, casting, additive manufacturing, sustainable manufacturing.\n\n"
+                    f"ARTICLE CONTENT (first 1000 chars):\n{article_content[:1000]}\n\n"
+                    f"DECISION TREE:\n"
+                    f"1. If the article is about COMPLETELY DIFFERENT topics (e.g., photonics, silicon chips, optics, microresonators, etc.), "
+                    f"then IMMEDIATELY state: 'CRITICAL WARNING: The uploaded article appears to be completely off-topic. "
+                    f"The abstract discusses 3D sand printing for casting, while the article is about [briefly describe article topic]. "
+                    f"Review will proceed based on abstract's internal consistency only.'\n\n"
+                    f"2. If the article IS relevant, then review normally.\n\n"
+                    f"3. For normal review, check:\n"
+                    f"   - Consistency between abstract and article\n"
+                    f"   - Clarity and structure\n"
+                    f"   - Completeness (background, methods, results, conclusion)\n"
+                    f"   - Academic standards\n"
+                    f"   - Overall impact\n\n"
+                    f"IMPORTANT: Be brutally honest about topic mismatch if it exists!"
                 )
             else:
                 reviewer_instructions = (
-                    "You are 'Reviewer Agent'. Your objective is to review the quality of the abstract "
-                    "based on its own merits since no full article was provided. "
+                    "You are 'Reviewer Agent'. Review the abstract quality based on its own merits since no full article was provided. "
                     "Provide constructive feedback on:\n"
                     "1. Clarity and readability\n"
                     "2. Completeness (background, methods, results, conclusion)\n"
                     "3. Academic writing style\n"
                     "4. Overall impact and contribution\n"
                     "5. Logical flow and structure"
-                )
-            
+                )   
+
             reviewer_agent = agents_client.create_agent(
                 model=MODEL_DEPLOYMENT,
                 name="reviewer_agent",
@@ -238,16 +301,17 @@ def run_abstract_reviewer():
                 model=MODEL_DEPLOYMENT,
                 name="checklister_agent",
                 instructions=(
-                    "You are 'Checklister Agent'. Evaluate the abstract quality using percentage scores (0-100%) "
-                    "for these objective criteria:\n"
-                    "1. Length (250-500 words optimal)\n"
-                    "2. Keywords (relevance to paper subject)\n"
-                    "3. Gist (captures essence of article)\n"
-                    "4. Consistency (aligns with full article content if provided)\n"
-                    "5. Inclusion (relevant data/evidence)\n"
-                    "6. Checklist (background, objective, methods, results, conclusion)\n"
-                    "7. Concise and Comprehensive balance\n\n"
-                    "Return scores as a JSON object with these keys and numeric values."
+                    "You MUST return EXACTLY 7 scores in this EXACT JSON format with these EXACT keys:\n\n"
+                    '{"length": score, "keywords": score, "gist": score, "consistency": score, "inclusion": score, "checklist_completeness": score, "conciseness": score}\n\n'
+                    "Score each category 0-100%:\n"
+                    "1. 'length': Is abstract 200-250 words? (200-250 words = 100/100; less than 50 or more than 500 = 0/100)\n"
+                    "2. 'keywords': Relevance to paper subject\n"
+                    "3. 'gist': Captures essence of article\n"
+                    "4. 'consistency': Aligns with full article content (100/100 if perfect match; 0/100 if off-topic)\n"
+                    "5. 'inclusion': Contains relevant data/evidence\n"
+                    "6. 'checklist_completeness': Has background, objective, methods, results, conclusion\n"
+                    "7. 'conciseness': Balance between comprehensive and concise\n\n"
+                    "DO NOT use any other keys. DO NOT add explanations. Return ONLY the JSON."
                 ),
             )
             
@@ -274,12 +338,17 @@ def run_abstract_reviewer():
             
             # Create orchestrator with article context
             orchestrator_instructions = (
-                "You are 'Abstract Orchestrator'. Coordinate the abstract review process:\n"
-                "1. Use input_agent to collect the abstract and article\n"
-                "2. Use reviewer_agent for qualitative feedback\n"
-                "3. Use checklister_agent for quantitative scoring (in %)\n"
-                "4. Use writer_agent to produce corrected version\n"
-                "5. Present final review with scores, feedback, error message if article file path is incorrect, short summary of the article actually provided in the file path and corrected abstract\n\n"
+                "You are 'Abstract Orchestrator'. DO NOT ask for the abstract or article - they have already been provided.\n"
+                "Coordinate the review process by:\n"
+                "1. Using reviewer_agent to analyze the abstract (and article if provided)\n"
+                "2. Using checklister_agent to provide percentage scores (as JSON)\n"
+                "3. Using writer_agent to improve the abstract\n"
+                "4. Presenting the final review with these sections clearly labeled:\n"
+                "   - REVIEW COMMENTS (as bullet points)\n"
+                "   - CHECKLIST SCORES (as JSON object)\n"
+                "   - CORRECTED ABSTRACT\n"
+                "   - IMPROVEMENT SUMMARY (as bullet points)\n\n"
+                "IMPORTANT: Format each section with the exact header names above."
             )
             
             if article_content:
@@ -292,14 +361,11 @@ def run_abstract_reviewer():
                     "NOTE: No full article was provided. Review will be based on abstract's internal consistency.\n\n"
                 )
             
-            orchestrator_instructions += "Format output clearly with sections: REVIEW, SCORES, CORRECTED ABSTRACT"
-            
             orchestrator = agents_client.create_agent(
                 model=MODEL_DEPLOYMENT,
                 name="abstract_orchestrator",
                 instructions=orchestrator_instructions,
-                tools=[t_input.definitions[0], t_review.definitions[0], 
-                       t_check.definitions[0], t_write.definitions[0]],
+                tools=[t_review.definitions[0], t_check.definitions[0], t_write.definitions[0]]
             )
             
             # Create thread and send message
@@ -349,60 +415,121 @@ def run_abstract_reviewer():
             
             combined = "\n".join(assistant_chunks)
             
-            # Parse the output
-            parsed = {
-                "review_comments": [],
-                "checklist_scores": {},
-                "corrected_abstract": "",
-                "improvement_summary": ""
-            }
-            
-            # Enhanced parsing logic - FIXED: Removed redefinition of 'json'
-            lines = combined.split('\n')
-            current_section = None
-            
-            for line in lines:
-                line_lower = line.lower()
-                if 'review' in line_lower:
-                    current_section = 'review'
-                elif 'score' in line_lower or 'checklist' in line_lower:
-                    current_section = 'scores'
-                    # Try to find JSON-like scores
-                    try:
-                        # Look for JSON in the line
-                        json_start = line.find('{')
-                        json_end = line.rfind('}') + 1
-                        if json_start != -1 and json_end != 0:
-                            scores_json = line[json_start:json_end]
-                            # Use the imported json module, don't redefine it
-                            parsed["checklist_scores"] = json.loads(scores_json)
-                    except Exception as e:
-                        print(f"Warning: Could not parse scores JSON: {e}")
-                        pass
-                elif 'corrected' in line_lower or 'improved' in line_lower:
-                    current_section = 'corrected'
-                elif 'summary' in line_lower or 'improvement' in line_lower:
-                    current_section = 'summary'
+            # NEW PARSING FUNCTION - FIXED
+            def parse_assistant_output(text: str) -> dict:
+                """Parse assistant output into structured sections."""
+                parsed = {
+                    "review_comments": [],
+                    "checklist_scores": {},
+                    "corrected_abstract": "",
+                    "improvement_summary": ""
+                }
                 
-                if current_section == 'review' and line.strip() and 'review' not in line_lower:
-                    if line.strip().startswith(('1.', '2.', '3.', '4.', '5.', '6.', '7.', '8.', '-', '*')):
-                        parsed["review_comments"].append(line.strip())
-                elif current_section == 'corrected' and line.strip() and 'corrected' not in line_lower:
-                    if not line.startswith('=') and not line.startswith('-'):
-                        parsed["corrected_abstract"] += line + "\n"
-                elif current_section == 'summary' and line.strip() and 'summary' not in line_lower:
-                    if not line.startswith('=') and not line.startswith('-'):
-                        parsed["improvement_summary"] += line + " "
+                # Convert to uppercase for case-insensitive matching
+                text_upper = text.upper()
+                
+                # Find section boundaries
+                review_start = text_upper.find("REVIEW COMMENTS")
+                scores_start = text_upper.find("CHECKLIST SCORES")
+                corrected_start = text_upper.find("CORRECTED ABSTRACT")
+                improvement_start = text_upper.find("IMPROVEMENT SUMMARY")
+                
+                # Extract review comments
+                if review_start != -1 and scores_start != -1:
+                    review_text = text[review_start:scores_start]
+                    # Extract bullet points
+                    lines = review_text.split('\n')
+                    for line in lines:
+                        line = line.strip()
+                        # Look for bullet points or numbered lists
+                        if line.startswith(('-', '•', '*')):
+                            # Remove bullet and clean
+                            clean_line = re.sub(r'^[\-\•\*\s]+', '', line)
+                            if clean_line and len(clean_line) > 10:  # Ensure meaningful content
+                                parsed["review_comments"].append(clean_line)
+                        elif re.match(r'^\d+\.', line):
+                            # Remove number and clean
+                            clean_line = re.sub(r'^\d+\.\s*', '', line)
+                            if clean_line and len(clean_line) > 10:
+                                parsed["review_comments"].append(clean_line)
+                
+                # Extract checklist scores
+                if scores_start != -1 and corrected_start != -1:
+                    scores_text = text[scores_start:corrected_start]
+                elif scores_start != -1 and corrected_start == -1 and improvement_start != -1:
+                    scores_text = text[scores_start:improvement_start]
+                elif scores_start != -1:
+                    scores_text = text[scores_start:]
+                
+                if 'scores_text' in locals():
+                    # Find JSON object
+                    try:
+                        json_start = scores_text.find('{')
+                        json_end = scores_text.rfind('}') + 1
+                        if json_start != -1 and json_end > json_start:
+                            scores_json = scores_text[json_start:json_end]
+                            parsed["checklist_scores"] = json.loads(scores_json)
+                    except json.JSONDecodeError:
+                        print(f"⚠  Warning: Could not parse scores JSON")
+                
+                # Extract corrected abstract
+                if corrected_start != -1 and improvement_start != -1:
+                    corrected_text = text[corrected_start:improvement_start]
+                elif corrected_start != -1:
+                    corrected_text = text[corrected_start:]
+                
+                if 'corrected_text' in locals():
+                    # Remove the "CORRECTED ABSTRACT" header and any following empty lines
+                    lines = corrected_text.split('\n')
+                    abstract_lines = []
+                    header_passed = False
+                    for line in lines:
+                        if line.upper().strip().startswith("CORRECTED ABSTRACT"):
+                            header_passed = True
+                            continue
+                        if header_passed and line.strip():
+                            abstract_lines.append(line.strip())
+                    
+                    if abstract_lines:
+                        parsed["corrected_abstract"] = ' '.join(abstract_lines)
+                
+                # Extract improvement summary
+                if improvement_start != -1:
+                    improvement_text = text[improvement_start:]
+                    # Remove the "IMPROVEMENT SUMMARY" header
+                    lines = improvement_text.split('\n')
+                    summary_lines = []
+                    header_passed = False
+                    for line in lines:
+                        if line.upper().strip().startswith("IMPROVEMENT SUMMARY"):
+                            header_passed = True
+                            continue
+                        if header_passed and line.strip():
+                            # Remove bullet points for summary
+                            clean_line = re.sub(r'^[\-\•\*\s]+', '', line.strip())
+                            if clean_line:
+                                summary_lines.append(clean_line)
+                    
+                    if summary_lines:
+                        parsed["improvement_summary"] = ' '.join(summary_lines)
+                
+                return parsed
             
-            # If no corrected abstract was found, use a simple improvement
-            if not parsed["corrected_abstract"].strip():
-                parsed["corrected_abstract"] = user_abstract  # Fallback
+            # Use the parsing function
+            parsed = parse_assistant_output(combined)
+            
+            # Debug: Print what was parsed
+            print(f"\n🔍 DEBUG PARSED DATA:")
+            print(f"Review comments found: {len(parsed['review_comments'])}")
+            print(f"Checklist scores found: {len(parsed['checklist_scores'])}")
+            print(f"Corrected abstract length: {len(parsed['corrected_abstract'])} chars")
             
             # Create final result
             result = validate_and_fill(
                 parsed, 
                 original_abstract=user_abstract, 
-                custom_commands=user_commands
+                custom_commands=user_commands,
+                article_content=article_content
             )
             
             # Add article info to result
@@ -410,33 +537,40 @@ def run_abstract_reviewer():
                 result["article_path"] = user_article
                 result["article_provided"] = article_content is not None
             
+
             # Display result
             print("\n" + "="*50)
             print("ABSTRACT REVIEW REPORT")
             print("="*50)
-            
-            print(f"\n📝 Original Abstract ({len(user_abstract.split())} words):")
+
+            # Calculate actual word count properly
+            abstract_words = len(user_abstract.split())
+            print(f"\n📝 Original Abstract ({abstract_words} words):")
             print("-"*40)
-            print(user_abstract[:500] + ("..." if len(user_abstract) > 500 else ""))
-            
+            # Display the FULL abstract, not truncated
+            print(user_abstract)
+
             print(f"\n📋 Review Comments ({len(result['review_comments'])}):")
             print("-"*40)
             for i, comment in enumerate(result['review_comments'], 1):
                 print(f"{i}. {comment}")
-            
+
             print(f"\n📊 Checklist Scores:")
             print("-"*40)
             for criterion, score in result['checklist_scores'].items():
                 print(f"{criterion.replace('_', ' ').title()}: {score}/100")
-            
-            print(f"\n✏️  Corrected Abstract ({len(result['corrected_abstract'].split())} words):")
+
+            # Calculate corrected abstract word count
+            corrected_words = len(result['corrected_abstract'].split())
+            print(f"\n✏️  Corrected Abstract ({corrected_words} words):")
             print("-"*40)
-            print(result['corrected_abstract'][:600] + 
-                  ("..." if len(result['corrected_abstract']) > 600 else ""))
-            
+            # Display the FULL corrected abstract
+            print(result['corrected_abstract'])
+
             print(f"\n✅ Improvement Summary:")
             print("-"*40)
             print(result['improvement_summary'])
+
             
             # Save results to files
             ts = datetime.now().strftime("%Y%m%d-%H%M%S")

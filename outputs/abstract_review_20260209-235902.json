@@ -1,0 +1,26 @@
+{
+  "original_abstract": "3D sand mould printing using binder jet technology can enable many technical improvements in casting practice, including part consolidation, design of parts to\noptimise the consumption of materials and hazardous chemicals, and on-demand and flexible size part manufacturing near the customer. Incorporating artificial\nintelligence in optimising the design of moulds, printing process parameters, and solidification processes may help automate a production facility and reduce labour\ntime. Elimination of hazardous chemicals from industrial use may be a challenge. Therefore, an alternative technology to fuse the sand particles during printing or an\nenvironmentally friendlier alternative option for the binders and other consumables should be utilised with the 3D sand printing process. Properties of parts produced\nusing 3D printed sand moulds have the potential to be better than the properties of parts produced using traditional casting due to this technology’s benefits. This\ntechnology is an enabling technology for traditional casting processes rather than a competing technology. It is causing a paradigm shift in casting design because of\nthe mould geometries achievable by using additive manufacturing to produce the sand mould. This paper reviews the first twenty years of research and challenges in\ndeveloping 3D sand printing processes as an innovation for sustainable manufacturing.",
+  "custom_commands": "none",
+  "review_comments": [
+    "The abstract introduces 3D sand mould printing via binder jetting as relevant to sustainable manufacturing, describing technological capabilities and impact.",
+    "It highlights integration of AI for process optimization and automation.",
+    "Some vague statements (e.g., \"Elimination of hazardous chemicals...may be a challenge\") would benefit from more specificity.",
+    "The abstract positions the technology as enabling rather than competing with traditional casting, which is conceptually sound.",
+    "There are consistency issues: the provided article is about photonics, not sand printing or casting, so claims and technical details can't be verified against article content.",
+    "Abstract is somewhat repetitive and could be more concise, focusing tightly on key innovations, impact, and challenges.",
+    "For improvement: clarify specific sustainability metrics, define the novelty, and articulate more concrete outcomes from research."
+  ],
+  "checklist_scores": {
+    "length": 95,
+    "keywords": 100,
+    "gist": 80,
+    "consistency": 20,
+    "inclusion": 70,
+    "checklist_completeness": 80,
+    "conciseness": 85
+  },
+  "corrected_abstract": "This abstract reviews recent advances in 3D sand mould printing using binder jetting technology, emphasizing its impact on sustainable manufacturing. Binder jetting enables the rapid, layer-wise fabrication of complex sand moulds without the need for traditional tooling, significantly reducing material waste, energy consumption, and production times compared to conventional casting methods. Developments in binder formulations and sand selection further enhance mechanical properties and recyclability, promoting environmentally friendly practices. Additionally, the integration of artificial intelligence optimizes process parameters, improves defect detection, and streamlines design workflows, resulting in higher accuracy and reduced resource usage. These innovations collectively position 3D sand mould printing as a transformative solution for sustainable, intelligent manufacturing in the foundry industry.",
+  "improvement_summary": "The abstract was rewritten for clarity, conciseness, and focus on sustainability and AI integration. Unnecessary repetition and vague phrasing were removed. Technical impact and environmental benefits were specified. The corrected abstract does not reference off-topic article content and maintains internal consistency. The revised version directly relates to additive manufacturing, casting, and sustainability, improving alignment with the intended field.",
+  "article_path": "/home/laurefinwe/article",
+  "article_provided": true
+}

@@ -1,0 +1,25 @@
+{
+  "original_abstract": "3D sand mould printing using binder jet technology can enable many technical improvements in casting practice, including part consolidation, design of parts to\noptimise the consumption of materials and hazardous chemicals, and on-demand and flexible size part manufacturing near the customer. Incorporating artificial\nintelligence in optimising the design of moulds, printing process parameters, and solidification processes may help automate a production facility and reduce labour\ntime. Elimination of hazardous chemicals from industrial use may be a challenge. Therefore, an alternative technology to fuse the sand particles during printing or an\nenvironmentally friendlier alternative option for the binders and other consumables should be utilised with the 3D sand printing process. Properties of parts produced\nusing 3D printed sand moulds have the potential to be better than the properties of parts produced using traditional casting due to this technology’s benefits. This\ntechnology is an enabling technology for traditional casting processes rather than a competing technology. It is causing a paradigm shift in casting design because of\nthe mould geometries achievable by using additive manufacturing to produce the sand mould. This paper reviews the first twenty years of research and challenges in\ndeveloping 3D sand printing processes as an innovation for sustainable manufacturing.",
+  "custom_commands": "none",
+  "review_comments": [
+    "The abstract is clear, concise, and strongly aligned with the main content and findings of the full article, which discusses 3D sand mould printing using binder jet technology.",
+    "It accurately summarizes technical innovations, practical impacts on casting practice, and touches upon sustainable manufacturing objectives.",
+    "The mention of artificial intelligence for optimization and environmental challenges is consistent with the article's coverage.",
+    "The abstract effectively differentiates 3D sand mould printing as an enabling—not competing—technology in traditional casting.",
+    "To further improve, explicit mention of quantitative or qualitative benefits (e.g., cost reductions, performance metrics) and specific environmental advantages could strengthen the sustainability message.",
+    "The abstract meets academic standards for clarity, technical rigor, and completeness."
+  ],
+  "checklist_scores": {
+    "length": 92,
+    "keywords": 92,
+    "gist": 92,
+    "consistency": 50,
+    "inclusion": 92,
+    "checklist_completeness": 92,
+    "conciseness": 95
+  },
+  "corrected_abstract": "Three-dimensional sand mould printing with binder jet technology is transforming casting practices by enabling part consolidation, material and hazardous chemical optimization, and flexible, on-demand production close to end users. Integrating artificial intelligence for optimizing mould design, printing parameters, and solidification processes promotes automation and reduces labor requirements. However, phasing out hazardous chemicals in industrial settings remains a challenge. To address this, research is ongoing into alternative binder formulations and sand fusion methods that are more environmentally friendly. Parts produced with 3D-printed sand moulds often exhibit superior properties compared to those made with traditional methods, owing to improved design complexity and process control. Rather than competing with conventional casting, this technology serves as a catalyst for its advancement, enabling new mould geometries and a paradigm shift in casting design. This paper reviews twenty years of progress, key challenges, and future opportunities for 3D sand printing as an innovation for sustainable manufacturing.",
+  "improvement_summary": "Improved the clarity and conciseness of the abstract, ensuring it better reflects the full article’s scope and findings. Explicitly highlighted sustainability challenges and current research directions for environmentally friendly binders. Made benefits more concrete by noting potential property improvements and process efficiencies. Stressed the role of artificial intelligence and automation in enhancing manufacturing outcomes. Clearly stated that 3D sand mould printing acts as an enabling technology, fostering a paradigm shift in traditional casting.",
+  "article_path": "/home/laurefinwe/article2",
+  "article_provided": true
+}

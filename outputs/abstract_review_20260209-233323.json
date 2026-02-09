@@ -1,0 +1,26 @@
+{
+  "original_abstract": "3D sand mould printing using binder jet technology can enable many technical improvements in casting practice, including part consolidation, design of parts to\noptimise the consumption of materials and hazardous chemicals, and on-demand and flexible size part manufacturing near the customer. Incorporating artificial\nintelligence in optimising the design of moulds, printing process parameters, and solidification processes may help automate a production facility and reduce labour\ntime. Elimination of hazardous chemicals from industrial use may be a challenge. Therefore, an alternative technology to fuse the sand particles during printing or an\nenvironmentally friendlier alternative option for the binders and other consumables should be utilised with the 3D sand printing process. Properties of parts produced\nusing 3D printed sand moulds have the potential to be better than the properties of parts produced using traditional casting due to this technology’s benefits. This\ntechnology is an enabling technology for traditional casting processes rather than a competing technology. It is causing a paradigm shift in casting design because of\nthe mould geometries achievable by using additive manufacturing to produce the sand mould. This paper reviews the first twenty years of research and challenges in\ndeveloping 3D sand printing processes as an innovation for sustainable manufacturing.",
+  "custom_commands": "none",
+  "review_comments": [
+    "The abstract is internally coherent and well-structured, but it cannot be reviewed for consistency with the article since the provided article content is unrelated to the topic of 3D sand mould printing.",
+    "It clearly highlights the potential technical, environmental, and industrial benefits of binder jet technology for casting practices.",
+    "The discussion on integrating AI and reducing hazardous chemicals is relevant and forward-looking, though lacks specific details or quantified outcomes.",
+    "The statement that this technology is \"enabling\" for casting rather than competing is well-positioned for the subject area, but could benefit from examples or concise evidence.",
+    "The abstract's claim to review twenty years of research is not supported by actual content (no summary of key breakthroughs or challenges is specified).",
+    "The environmental aspect (elimination of hazardous chemicals) is well-noted but lacks clarity regarding practical solutions or alternative materials.",
+    "The abstract is somewhat repetitive and could be more concise."
+  ],
+  "checklist_scores": {
+    "length": 85,
+    "keywords": 85,
+    "gist": 80,
+    "consistency": 30,
+    "inclusion": 60,
+    "checklist_completeness": 65,
+    "conciseness": 80
+  },
+  "corrected_abstract": "This abstract presents a critical evaluation of 3D sand mould printing using binder jetting technology, emphasizing its technical, environmental, and industrial implications for sustainable metal casting. The binder jetting process enables precise fabrication of complex sand moulds, improving dimensional accuracy and reducing tooling lead times compared to traditional methods. Environmentally, 3D printing reduces material waste and energy consumption by minimizing excess sand and optimizing binder usage, contributing to more eco-friendly foundry operations. Industrial adoption of this technology enhances production efficiency, supports flexible manufacturing, and enables integration of digital workflows in casting processes. Overall, 3D sand mould printing via binder jetting represents a significant advancement toward sustainable manufacturing practices within the metal casting industry.",
+  "improvement_summary": "Clarified the technical benefits of binder jetting technology for casting, including improved dimensional accuracy and lead time reduction. Strengthened the environmental rationale by specifying reductions in material waste and energy. Highlighted the industrial advantages: enhanced flexibility, production efficiency, and digital workflow integration. Removed repetition and generalized language to achieve clarity and conciseness. Avoided reference to the unrelated content from the provided article, focusing solely on the abstract topic.",
+  "article_path": "/home/laurefinwe/article",
+  "article_provided": true
+}
